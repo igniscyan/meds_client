@@ -8,13 +8,19 @@ const AddField = ({ name }) => {
 
   const handleSubmit = () => {
     // Generate array of new items
-    setItems(items.split(","));
+    setItems((curr) => {
+      if (typeof items === "string") curr = items.split(",");
+      console.log(curr);
+      return curr;
+    });
   };
 
   return (
     <>
       {/* Button goes here */}
-      <Button onClick={() => setShowingField(!showingField)}>Add {name}</Button>
+      <Button onPress={() => setShowingField(!showingField)}>
+        {showingField ? `Hide 'Add ${name}' Menu` : `Add ${name}`}
+      </Button>
 
       {showingField && (
         <>
@@ -23,7 +29,12 @@ const AddField = ({ name }) => {
             "item1,item2,item3...")
           </p>
           {/* Text Field goes here */}
-          <Input value={items} onChange={(e) => setItems(e.target.value)} />
+          <Input
+            value={items}
+            label={`List of ${name}s`}
+            aria-label={`list of ${name}s`}
+            onChange={(e) => setItems(e.target.value)}
+          />
           <Checkbox
             isDisabled={false}
             checked={saveToDB}
@@ -31,7 +42,7 @@ const AddField = ({ name }) => {
             aria-label="save for future use">
             Save for Future Use?
           </Checkbox>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onPress={handleSubmit}>Submit</Button>
         </>
       )}
     </>

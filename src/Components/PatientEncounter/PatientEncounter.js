@@ -11,22 +11,48 @@ import {
   Card,
 } from "@nextui-org/react";
 import AddField from "./AddField";
+import { usePutPatientEncounterMutation } from "../../Queries/usePutPatientEncounterMutation";
 
-const Patientencounter = () => {
+const PatientEncounter = () => {
+  const [encounterFields, setEncounterFields] = useState({
+    gyn: false,
+    pregnant: false,
+    lastPeriod: "",
+    height: 0,
+    weight: 0,
+    temperature: 0,
+    systolic: 0,
+    diastolic: 0,
+    heartRate: 0,
+    respRate: 0,
+    triageNote: "",
+    medNote: "",
+    pharmNote: "",
+    eyeNote: "",
+    dentalNote: "",
+    goodiesNote: "",
+    location: "",
+    open: false,
+  });
+
   const [patientInfo, setPatientInfo] = useState({
     firstName: "",
     lastName: "",
     dateOfBirth: "",
     sex: "",
     smoker: false,
-    gyn: false,
-    pregnant: false,
-    lastPeriod: "",
   });
-  console.log(patientInfo);
+
+  // console.log(encounterFields);
+
+  const patientEncounterMutation = usePutPatientEncounterMutation();
+
+  const submitForm = () => {
+    patientEncounterMutation.mutate([encounterFields, 1]);
+  };
 
   const handleChange = (propertyName, newValue) => {
-    setPatientInfo({ ...patientInfo, [propertyName]: newValue });
+    setEncounterFields({ ...encounterFields, [propertyName]: newValue });
   };
 
   return (
@@ -92,12 +118,12 @@ const Patientencounter = () => {
           <Input label="Weight" type="number" />
         </Grid>
 
-        {patientInfo.sex === "Female" && (
+        {encounterFields.sex === "Female" && (
           <>
             <Grid xs={4} justify="center">
               <Checkbox
                 isDisabled={false}
-                checked={patientInfo.gyn}
+                checked={encounterFields.gyn}
                 onChange={(checked) => handleChange("gyn", checked)}>
                 Gyn patient?
               </Checkbox>
@@ -106,7 +132,7 @@ const Patientencounter = () => {
             <Grid xs={4} justify="center">
               <Checkbox
                 isDisabled={false}
-                checked={patientInfo.pregnant}
+                checked={encounterFields.pregnant}
                 onChange={(checked) => handleChange("pregnant", checked)}>
                 Pregnant
               </Checkbox>
@@ -116,7 +142,7 @@ const Patientencounter = () => {
               <Input
                 type="date"
                 label="Last Period"
-                value={patientInfo.lastPeriod}
+                value={encounterFields.lastPeriod}
                 onChange={(e) => handleChange("lastPeriod", e.target.value)}
               />
             </Grid>
@@ -159,9 +185,10 @@ const Patientencounter = () => {
         <Grid xs={12} justify="center">
           <AddField name="Chief Complaint" />
         </Grid>
+        <Button onPress={submitForm}>Hope this works...</Button>
       </Grid.Container>
     </Card>
   );
 };
 
-export default Patientencounter;
+export default PatientEncounter;
