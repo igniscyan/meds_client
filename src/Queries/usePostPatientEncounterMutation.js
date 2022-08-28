@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
-export function usePutPatientEncounterMutation() {
-  async function putPatientEncounter([patient_encounter, patient_id]) {
+export function usePostPatientEncounterMutation() {
+  async function postPatientEncounter([patient_encounter, patient_id]) {
     const res = await fetch(
       `http://localhost:3050/api/insert/patient_encounter/${patient_id}`,
       {
@@ -18,5 +18,5 @@ export function usePutPatientEncounterMutation() {
     return res.json();
   }
 
-  return useMutation(putPatientEncounter);
+  return useMutation(postPatientEncounter);
 }
