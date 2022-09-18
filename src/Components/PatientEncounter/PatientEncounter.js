@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Grid, Text, Input, Button, Checkbox, Card } from "@nextui-org/react";
-import AddField from "../AddField";
-import DemographicsCard from "../DemographicsCard";
-import { usePostPatientEncounterMutation } from "../../Queries/usePostPatientEncounterMutation";
+import React, { useState } from 'react';
+import { Grid, Text, Input, Button, Checkbox, Card } from '@nextui-org/react';
+import AddField from '../AddField';
+import DemographicsCard from '../DemographicsCard';
+import { usePostPatientEncounterMutation } from '../../Services/api';
 
 const PatientEncounter = () => {
   const [encounterFields, setEncounterFields] = useState({
@@ -23,18 +23,19 @@ const PatientEncounter = () => {
     open: null,
   });
 
-  const addPatientEncounter = usePostPatientEncounterMutation();
+  const [addPatientEncounter, addPatientEncounterResult] =
+    usePostPatientEncounterMutation();
 
   const submitForm = () => {
     // todo: need to get the patient's gyn info before making this mutation
-    addPatientEncounter.mutate([
+    addPatientEncounter([
+      1,
       {
         gyn: null,
         pregnant: null,
         lastPeriod: null,
         ...encounterFields,
       },
-      1,
     ]);
   };
 

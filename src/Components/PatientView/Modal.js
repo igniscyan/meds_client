@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
-import DemographicsCard from "../DemographicsCard";
-import { Modal as NextModal, Text } from "@nextui-org/react";
+import React, { useState, useEffect } from 'react';
+import DemographicsCard from '../DemographicsCard';
+import { Modal as NextModal, Text } from '@nextui-org/react';
+import { useDispatch } from 'react-redux';
+import { makeFemale, test } from '../../actions';
 
 const Modal = ({ activePatient, visible, hideModal }) => {
+  const dispatch = useDispatch();
+
   const [demographicsFields, setDemographicsFields] = useState({
-    firstName: activePatient?.["first_name"],
-    lastName: activePatient?.["last_name"],
-    dateOfBirth: activePatient?.["dob"],
-    sex: activePatient?.["gender"],
-    smoker: activePatient?.["smoker"] === 1,
+    firstName: activePatient?.['first_name'],
+    lastName: activePatient?.['last_name'],
+    dateOfBirth: activePatient?.['dob'],
+    sex: activePatient?.['gender'],
+    smoker: activePatient?.['smoker'] === 1,
     // Need to get these values via a query:
     gyn: undefined,
     pregnant: undefined,
@@ -19,23 +23,23 @@ const Modal = ({ activePatient, visible, hideModal }) => {
     if (activePatient)
       setDemographicsFields((fields) => ({
         ...fields,
-        firstName: activePatient?.["first_name"],
-        lastName: activePatient?.["last_name"],
-        dateOfBirth: activePatient?.["dob"],
-        sex: activePatient?.["gender"],
-        smoker: activePatient?.["smoker"] === 1,
+        firstName: activePatient?.['first_name'],
+        lastName: activePatient?.['last_name'],
+        dateOfBirth: activePatient?.['dob'],
+        sex: activePatient?.['gender'],
+        smoker: activePatient?.['smoker'] === 1,
       }));
 
     return () => {
       setDemographicsFields({
-        firstName: "",
-        lastName: "",
-        dateOfBirth: "",
-        sex: "",
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        sex: '',
         smoker: false,
-        gyn: "",
-        pregnant: "",
-        lastPeriod: "",
+        gyn: '',
+        pregnant: '',
+        lastPeriod: '',
       });
     };
   }, [activePatient]);
@@ -51,11 +55,12 @@ const Modal = ({ activePatient, visible, hideModal }) => {
         <Text id="modal-title" size={18}>
           {demographicsFields.firstName && demographicsFields.lastName
             ? `${demographicsFields.firstName} ${demographicsFields.lastName}`
-            : "Add New Patient"}
+            : 'Add New Patient'}
         </Text>
       </NextModal.Header>
-
       <NextModal.Body>
+        <button onClick={() => dispatch(makeFemale())}>Make female</button>
+
         <DemographicsCard
           patientInfo={demographicsFields}
           setPatientInfo={setDemographicsFields}

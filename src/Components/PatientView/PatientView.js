@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useGet as GetPatients } from "../../Queries/useGet";
-import { Button, Table } from "@nextui-org/react";
-import DemographicsCard from "../DemographicsCard";
-import Modal from "./Modal";
+import React, { useState, useEffect } from 'react';
+import { useGetPatientsQuery as GetPatients } from '../../Services/api';
+import { Button, Table } from '@nextui-org/react';
+import DemographicsCard from '../DemographicsCard';
+import Modal from './Modal';
 
 const PatientView = () => {
   const patients = GetPatients();
@@ -35,8 +35,8 @@ const PatientView = () => {
         <Table
           aria-label="Patient Entry Table"
           css={{
-            height: "auto",
-            minWidth: "100%",
+            height: 'auto',
+            minWidth: '100%',
           }}>
           <Table.Header>
             <Table.Column>Name</Table.Column>
@@ -55,7 +55,7 @@ const PatientView = () => {
                 </Table.Cell>
                 <Table.Cell>{patient.dob}</Table.Cell>
                 <Table.Cell>{patient.gender}</Table.Cell>
-                <Table.Cell>{patient.smoker ? "yes" : "no"}</Table.Cell>
+                <Table.Cell>{patient.smoker ? 'yes' : 'no'}</Table.Cell>
                 <Table.Cell>
                   <Button
                     bordered
