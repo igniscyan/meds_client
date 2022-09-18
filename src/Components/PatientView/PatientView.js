@@ -15,7 +15,11 @@ const PatientView = () => {
   };
   const hideModal = () => {
     setModalVisible(false);
-    setActivePatient(undefined);
+    // Using a timeout to hide the undefined UI while the moddal is closing
+    // This happens because the modal closes with an animation, which takes time
+    setTimeout(() => {
+      setActivePatient(undefined);
+    }, 100);
   };
 
   console.log(patients.data);
@@ -40,6 +44,7 @@ const PatientView = () => {
             <Table.Column>Gender</Table.Column>
             <Table.Column>Smoker?</Table.Column>
             <Table.Column>View Demographics</Table.Column>
+            <Table.Column>Add Encounter</Table.Column>
           </Table.Header>
 
           <Table.Body>
@@ -60,6 +65,7 @@ const PatientView = () => {
                     view
                   </Button>
                 </Table.Cell>
+                <Table.Cell></Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

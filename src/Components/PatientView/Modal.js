@@ -42,6 +42,7 @@ const Modal = ({ activePatient, visible, hideModal }) => {
 
   return (
     <NextModal
+      width="50rem"
       blur
       aria-labelledby="modal-title"
       open={visible}

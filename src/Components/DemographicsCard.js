@@ -10,7 +10,14 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
   };
 
   return (
-    <Card>
+    <Card
+      variant="bordered"
+      css={{
+        paddingTop: "20px",
+        paddingBottom: "100px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+      }}>
       <Grid.Container>
         <Grid xs={12} justify="center">
           <Text h1>Demographics</Text>
@@ -56,13 +63,15 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
           </Radio.Group>
         </Grid>
         <Grid xs={3} justify="center">
-          <Checkbox
-            isDisabled={false}
-            checked={patientInfo.smoker}
-            onChange={(checked) => handleChange("smoker", checked)}
-            aria-label="smoker">
-            Smoker
-          </Checkbox>
+          <Checkbox.Group label="Smoker">
+            <Checkbox
+              isDisabled={false}
+              checked={patientInfo.smoker}
+              onChange={(checked) => handleChange("smoker", checked)}
+              aria-label="smoker">
+              {patientInfo.smoker ? "Yes" : "No"}
+            </Checkbox>
+          </Checkbox.Group>
         </Grid>
         <Grid xs={3} justify="center">
           <Input label="Height" type="number" />
