@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-globals */
 import React, { useState } from "react";
-import { createTheme, NextUIProvider } from "@nextui-org/react";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { createTheme, NextUIProvider, Navbar, Text} from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./App.css";
 import PatientView from "./Components/PatientView/PatientView";
@@ -29,22 +30,24 @@ const App = () => {
       <NextUIProvider theme="dark">
         <Router>
           <div>
-            <nav>
-              <ul style={noStyle}>
-                <li>
-                  <Link to="/">Patients</Link>
-                </li>
-                <li>
-                  <Link to="/patient-encounter">Patient Encounter</Link>
-                </li>
-              </ul>
-            </nav>
+            <Navbar isBordered variant="sticky">
+              <Navbar.Brand>
+                <Text b color="inherit" hideIn="xs">
+                    MEDS
+                </Text>
+              </Navbar.Brand>
+              <Navbar.Content>
+                <Navbar.Link href="/">Patient View</Navbar.Link>
+                <Navbar.Link href="/patient-encounter">Patient Encounter</Navbar.Link>
+              </Navbar.Content>
+            </Navbar>
           </div>
           <Routes>
             <Route path="/" element={<PatientView />} />
             <Route path="patient-encounter" element={<PatientEncounter />} />
           </Routes>
         </Router>
+        <ReactQueryDevtools initialIsOpen={true}/>
       </NextUIProvider>
     </NextThemesProvider>
   );
