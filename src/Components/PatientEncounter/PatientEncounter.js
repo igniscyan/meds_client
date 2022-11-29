@@ -74,8 +74,8 @@ const PatientEncounter = () => {
         <Grid xs={12} justify="center">
           <Checkbox.Group>
             <Checkbox value="Chest Pain" label="Chest Pain" />
-            <Checkbox value="Hernie Gernie" label="Hernie Gernie" />
-            <Checkbox value="Poo pain" label="Poo pain" />
+            <Checkbox value="Shortness of breath" label="Short breath" />
+            <Checkbox value="Cough" label="Cough" />
           </Checkbox.Group>
         </Grid>
 

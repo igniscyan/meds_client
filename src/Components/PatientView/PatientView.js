@@ -40,6 +40,8 @@ const PatientView = () => {
             <Table.Column>Gender</Table.Column>
             <Table.Column>Smoker?</Table.Column>
             <Table.Column>View Demographics</Table.Column>
+            <Table.Column>View Encounters</Table.Column>
+            <Table.Column>Add Encounter</Table.Column>
           </Table.Header>
 
           <Table.Body>
@@ -57,7 +59,25 @@ const PatientView = () => {
                     color="primary"
                     auto
                     onClick={() => showModal(patient)}>
-                    view
+                    Demographics
+                  </Button>
+                </Table.Cell>
+                <Table.Cell>
+                <Button
+                    bordered
+                    color="primary"
+                    auto
+                    onClick={() => showModal(patient)}>
+                    View Encounters
+                  </Button>
+                </Table.Cell>
+                <Table.Cell>
+                <Button
+                    bordered
+                    color="primary"
+                    auto
+                    onClick={() => showModal(patient)}>
+                    + Add
                   </Button>
                 </Table.Cell>
               </Table.Row>
