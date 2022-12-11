@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Text, Input, Button, Checkbox, Card } from "@nextui-org/react";
+import { Grid, Text, Input, Button, Checkbox, Card, Textarea } from "@nextui-org/react";
 import AddField from "../AddField";
 import DemographicsCard from "../DemographicsCard";
 import { usePostPatientEncounterMutation } from "../../Queries/usePostPatientEncounterMutation";
@@ -71,17 +71,145 @@ const PatientEncounter = () => {
         <Grid xs={12} justify="center">
           <Text h1>Chief Complaint</Text>
         </Grid>
+        <Grid xs={12} justify='center'>
+          <Checkbox.Group
+            size='xs'
+            orientation='horizontal'>
+            <Checkbox value="ABDOMINAL PAIN" label="ABDOMINAL PAIN" />
+            <Checkbox value="ANXIETY/NERVOUSNESS" label="ANXIETY/NERVOUSNESS" />
+            <Checkbox value="BACK PAIN" label="BACK PAIN" />
+            <Checkbox value="CHEST PAIN" label="CHEST PAIN" />
+            <Checkbox value="COUGH" label="COUGH" />
+            <Checkbox value="DEPRESSION" label="DEPRESSION" />
+            <Checkbox value="DIARRHEA" label="DIARRHEA" />
+          </Checkbox.Group>
+        </Grid>
         <Grid xs={12} justify="center">
-          <Checkbox.Group>
-            <Checkbox value="Chest Pain" label="Chest Pain" />
-            <Checkbox value="Shortness of breath" label="Short breath" />
-            <Checkbox value="Cough" label="Cough" />
+          <Checkbox.Group
+            size='xs'
+            orientation='horizontal'>
+            <Checkbox value="DIZZINESS" label="DIZZINESS" />
+            <Checkbox value="EARACHE" label="EARACHE" />
+            <Checkbox value="FATGIUE" label="FATIGUE" />
+            <Checkbox value="FEVER/CHILLS/SWEATS" label="FEVER/CHILLS/SWEATS" />
+            <Checkbox value="HEADACHE" label="HEADACHE" />
+            <Checkbox value="JOINT PAIN" label="JOINT PAIN" />
+            <Checkbox value="NAUSEA" label="NAUSEA" />
+          </Checkbox.Group>
+        </Grid>
+        <Grid xs={12} justify='center'>
+          <Checkbox.Group
+            size='xs'
+            orientation='horizontal'>
+            <Checkbox value="NECK MASS" label="NECK MASS" />
+            <Checkbox value="NUMBNESS" label="NUMBNESS" />
+            <Checkbox value="PALPITATIONS" label="PALPITATIONS" />
+            <Checkbox value="RASH" label="RASH" />
+            <Checkbox value="SHORTNESS OF BREATH" label="SHORTNESS OF BREATH" />
+            <Checkbox value="SOFT TISSUE INJURY" label="SOFT TISSUE INJURY" />
+            <Checkbox value="SORE THROAT" label="SORE THROAT" />
+          </Checkbox.Group>
+        </Grid>
+        <Grid xs={12} justify='center'>
+          <Checkbox.Group
+            size='xs'
+            orientation='horizontal'>
+            <Checkbox value="TENDER NECK" label="TENDER NECK" />
+            <Checkbox value="UPPER RESPIRATORY SYMPTOMS" label="UPPER RESPIRATORY SYMPTOMS" />
+            <Checkbox value="URINARY SYMPTOMS" label="URINARY SYMPTOMS" />
+            <Checkbox value="VAGINAL DISCHARGE" label="VAGINAL DISCHARGE" />
+            <Checkbox value="VOMITING" label="VOMITING" />
+            <Checkbox value="VISION CHANGES" label="VISION CHANGES" />
           </Checkbox.Group>
         </Grid>
 
         {/* Add Chief Complaint Section */}
         <Grid xs={12} justify="center">
           <AddField name="Chief Complaint" />
+        </Grid>
+        <Grid xs={12} height='1200px'>
+          <Textarea
+            label='Enter Triage Notes'
+            height='100%'
+            value={`CHIEF COMPLAINT: 
+
+            HPI: 
+            
+            ALLERGIES
+                MEDICATION:
+                ENVIRONMENTAL:
+                FOOD ALLERGIES:
+            
+            MEDICATIONS/SUPPLEMENTS/OTC
+                MEDICATIONS: 
+                OTC: 
+                SUPPLEMENTS: 
+            
+            PAST MEDICAL HISTORY: 
+                ONGOING MEDICAL PROBLEMS: 
+                PAST SURGERIES/HOSPITALIZATIONS: 
+                RESOLVED MEDICAL PROBLEMS: 
+            
+            HEALTH MAINTENANCE
+                VACCINATIONS (Pneumo 65 y/o): 
+                MAMMOGRAM (40 y/o):  
+                PAP SMEAR: 
+                COLONOSCOPY (45 y/o): 
+            
+            GYN HX
+                LMP: 
+                SEXUALLY ACTIVE: 
+                METHOD OF CONTRACEPTION: 
+                GTPAL (GRAVIDA, TERM, PRETERM, ABORTION, LIVING): 
+            
+            SOCIAL HX
+                SUBSTANCE USE: 
+                SMOKING: 
+                ETOH: 
+                RECREATIONAL DRUGS: 
+                LIVING SITUATION: 
+                OCCUPATION: 
+                DIET: 
+                SEXUAL HX: 
+                SLEEP: 
+                TRAVEL: 
+                EXCERCISE: 
+                HOBBIES: 
+                SAFETY: 
+                RELIGION:
+            
+            FAMILY HX
+                MOTHER: 
+                FATHER: 
+                SIBLINGS: 
+                OTHER FIRST DEGREE RELATIVES: 
+            
+            ROS
+                CONSTITUTIONAL:
+                EYES:
+                INTEGUMENTARY: 
+                NEUROLOGIC: 
+                RESPIRATION: 
+                CARDIOVASCULAR: 
+                GASTROINTESTINAL: 
+                GENITOURINARY: 
+                ENDOCRINE: 
+                PSYCHIATRIC: 
+                MUSCULOSKELTAL: 
+                HEMATOLOGIC/LYMPHATIC:`}
+            size='l'
+            status='secondary'
+            fullWidth />
+        </Grid>
+        
+        <Grid xs={12} height>
+          <Textarea
+            label='Enter Pharmacy Notes'
+            height='auto'
+            value=''
+            size='l'
+            status='secondary'
+            fullWidth />
         </Grid>
 
         {/* Submit Button */}

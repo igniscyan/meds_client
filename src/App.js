@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-globals */
 import React, { useState } from "react";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createTheme, NextUIProvider, Navbar, Text} from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./App.css";
@@ -47,7 +46,6 @@ const App = () => {
             <Route path="patient-encounter" element={<PatientEncounter />} />
           </Routes>
         </Router>
-        <ReactQueryDevtools initialIsOpen={true}/>
       </NextUIProvider>
     </NextThemesProvider>
   );
