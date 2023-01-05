@@ -10,7 +10,7 @@ import PatientEncounter from "./Components/PatientEncounter/PatientEncounter";
 import { BrowserRouter as Router, Routes, Link, Route } from "react-router-dom";
 // import axios from 'axios';
 const darkTheme = createTheme({
-  type: "dark",
+  type: "light",
   theme: {},
 });
 

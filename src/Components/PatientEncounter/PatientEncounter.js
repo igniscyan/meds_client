@@ -46,8 +46,8 @@ const PatientEncounter = () => {
     <Card>
       <Grid.Container gap={2.5} justify="center">
         {/* Vitals Section */}
-        <Grid xs={12} justify="center">
-          <Text h1 justify="center">
+        <Grid xs={12} justify="left">
+          <Text h1>
             Vitals
           </Text>
         </Grid>
@@ -68,7 +68,7 @@ const PatientEncounter = () => {
         </Grid>
 
         {/* Chief Complaint Section */}
-        <Grid xs={12} justify="center">
+        <Grid xs={12} justify="left">
           <Text h1>Chief Complaint</Text>
         </Grid>
         <Grid xs={12} justify='center'>
@@ -211,9 +211,27 @@ const PatientEncounter = () => {
             status='secondary'
             fullWidth />
         </Grid>
+        <Grid xs={12} height>
+          <Textarea
+            label='Dental Notes'
+            height='auto'
+            value=''
+            size='l'
+            status='secondary'
+            fullWidth />
+        </Grid>
+        <Grid xs={12} height>
+          <Textarea
+            label='Optometrist Notes'
+            height='auto'
+            value=''
+            size='l'
+            status='secondary'
+            fullWidth />
+        </Grid>
 
         {/* Submit Button */}
-        <Button onPress={submitForm}>Hope this works...</Button>
+        {/* <Button onPress={submitForm}>Hope this works...</Button> */}
       </Grid.Container>
     </Card>
   );
