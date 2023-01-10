@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo} from "react";
 import { useGet as GetPatients } from "../../Queries/useGet";
-import { Button, Table } from "@nextui-org/react";
+import { Container, Button, Table, Spacer, Input} from "@nextui-org/react";
 import DemographicsCard from "../DemographicsCard";
 import Modal from "./Modal";
 
@@ -9,6 +9,9 @@ const PatientView = () => {
 
   const [activePatient, setActivePatient] = useState(undefined);
   const [modalVisible, setModalVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  // const [filteredResults, setFilteredResults] = useState([])
+  
   const showModal = (patient = undefined) => {
     setActivePatient(patient);
     setModalVisible(true);
@@ -18,6 +21,8 @@ const PatientView = () => {
     setActivePatient(undefined);
   };
 
+
+
   console.log(patients.data);
 
   if (patients.isLoading) return <div>Loading patients...</div>;
@@ -25,9 +30,60 @@ const PatientView = () => {
   if (patients.isError)
     return <div>Error loading patients: {patients.error.message}</div>;
 
-  if (patients.data)
+  if (patients.data){
+    
+    let id = 1;
+    const rows = patients.data.map(patient =>({
+      id: patient.id++,
+      first_name: patient.first_name,
+      last_name: patient.last_name,
+      dob: patient.dob,
+      gender: patient.gender,
+      smoker: patient.smoker
+    }));
+
+    const filteredRows = useMemo(() => {
+      if (!searchTerm) return rows;
+
+      if (rows.length > 0) {
+        const attributes = Object.keys(rows[0]);
+
+        const list = [];
+
+        for (const current of rows) {
+          for (const attribute of attributes) {
+            if (attribute === "key") {
+              continue;
+            }
+
+            const value = current[attribute];
+            if (value && value.toLowerCase() === searchTerm.toLowerCase()) {
+              const found = rows.find((row) => row.key === current.key); 
+              if (found) {
+                list.push(found);
+              }
+            }
+          }
+        }
+        return list;
+      }
+
+      return [];
+    }, [searchTerm, rows]);
+
+
+
     return (
       <div>
+        <Spacer y={4} />
+        <Input
+          size = "lg"
+          bordered
+          clearable
+          placeholder = "Search entries..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          />
         <Table
           aria-label="Patient Entry Table"
           css={{
@@ -35,17 +91,17 @@ const PatientView = () => {
             minWidth: "100%",
           }}>
           <Table.Header>
-            <Table.Column>Name</Table.Column>
-            <Table.Column>DOB</Table.Column>
-            <Table.Column>Gender</Table.Column>
-            <Table.Column>Smoker?</Table.Column>
-            <Table.Column>View Demographics</Table.Column>
-            <Table.Column>View Encounters</Table.Column>
-            <Table.Column>Add Encounter</Table.Column>
+            <Table.Column key='name'>NAME</Table.Column>
+            <Table.Column key='dob'>DOB</Table.Column>
+            <Table.Column key='gender'>GENDER</Table.Column>
+            <Table.Column key='tobacco'>TOBACCO</Table.Column>
+            <Table.Column key='demographics'>VIEW DEMOGRAPHICS</Table.Column>
+            <Table.Column key='history'></Table.Column>
+            <Table.Column key='addEncounter'>Add Encounter</Table.Column>
           </Table.Header>
 
           <Table.Body>
-            {patients.data.map((patient) => (
+            {filteredRows.map((patient) => (
               <Table.Row key={patient.id}>
                 <Table.Cell>
                   {patient.first_name} {patient.last_name}
@@ -98,6 +154,7 @@ const PatientView = () => {
         />
       </div>
     );
+  }
 };
 
 export default PatientView;
