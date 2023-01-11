@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useGet as GetPatients } from "../../Queries/useGet";
-import { Container, Button, Table, Spacer, Input} from "@nextui-org/react";
+import { Container, Button, Table, Spacer, Input } from "@nextui-org/react";
 import DemographicsCard from "../DemographicsCard";
 import Modal from "./Modal";
 
@@ -9,9 +9,9 @@ const PatientView = () => {
 
   const [activePatient, setActivePatient] = useState(undefined);
   const [modalVisible, setModalVisible] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   // const [filteredResults, setFilteredResults] = useState([])
-  
+
   const showModal = (patient = undefined) => {
     setActivePatient(patient);
     setModalVisible(true);
@@ -21,7 +21,24 @@ const PatientView = () => {
     setActivePatient(undefined);
   };
 
+  function filterRows(rows) {
+    if (!searchTerm) {
+      return rows;
+    }
 
+    if (rows.length > 0) {
+      console.log(rows);
+
+      const res = rows.filter((obj) => {
+        if (obj.first_name.toLowerCase().includes(searchTerm.toLowerCase()) || obj.last_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return obj;
+        }
+        
+      });
+
+      return res;
+    }
+  }
 
   console.log(patients.data);
 
@@ -30,60 +47,33 @@ const PatientView = () => {
   if (patients.isError)
     return <div>Error loading patients: {patients.error.message}</div>;
 
-  if (patients.data){
-    
+  if (patients.data) {
     let id = 1;
-    const rows = patients.data.map(patient =>({
-      id: patient.id++,
+    const rows = patients.data.map((patient) => ({
+      id: patient.id,
       first_name: patient.first_name,
       last_name: patient.last_name,
       dob: patient.dob,
       gender: patient.gender,
-      smoker: patient.smoker
+      smoker: patient.smoker,
     }));
 
-    const filteredRows = useMemo(() => {
-      if (!searchTerm) return rows;
-
-      if (rows.length > 0) {
-        const attributes = Object.keys(rows[0]);
-
-        const list = [];
-
-        for (const current of rows) {
-          for (const attribute of attributes) {
-            if (attribute === "key") {
-              continue;
-            }
-
-            const value = current[attribute];
-            if (value && value.toLowerCase() === searchTerm.toLowerCase()) {
-              const found = rows.find((row) => row.key === current.key); 
-              if (found) {
-                list.push(found);
-              }
-            }
-          }
-        }
-        return list;
-      }
-
-      return [];
-    }, [searchTerm, rows]);
-
-
+    const filteredRows = filterRows(rows);
+    console.log(filteredRows);
 
     return (
-      <div>
+      <Container>
         <Spacer y={4} />
         <Input
-          size = "lg"
+          size="lg"
           bordered
           clearable
-          placeholder = "Search entries..."
+          placeholder="Search entries..."
           value={searchTerm}
+          aria-label="Search patients by name"
           onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        />
+        <Spacer y={2}></Spacer>
         <Table
           aria-label="Patient Entry Table"
           css={{
@@ -91,13 +81,13 @@ const PatientView = () => {
             minWidth: "100%",
           }}>
           <Table.Header>
-            <Table.Column key='name'>NAME</Table.Column>
-            <Table.Column key='dob'>DOB</Table.Column>
-            <Table.Column key='gender'>GENDER</Table.Column>
-            <Table.Column key='tobacco'>TOBACCO</Table.Column>
-            <Table.Column key='demographics'>VIEW DEMOGRAPHICS</Table.Column>
-            <Table.Column key='history'></Table.Column>
-            <Table.Column key='addEncounter'>Add Encounter</Table.Column>
+            <Table.Column key="name">NAME</Table.Column>
+            <Table.Column key="dob">DOB</Table.Column>
+            <Table.Column key="gender">GENDER</Table.Column>
+            <Table.Column key="tobacco">TOBACCO</Table.Column>
+            <Table.Column key="demographics">VIEW DEMOGRAPHICS</Table.Column>
+            <Table.Column key="history"></Table.Column>
+            <Table.Column key="addEncounter">Add Encounter</Table.Column>
           </Table.Header>
 
           <Table.Body>
@@ -119,7 +109,7 @@ const PatientView = () => {
                   </Button>
                 </Table.Cell>
                 <Table.Cell>
-                <Button
+                  <Button
                     bordered
                     color="primary"
                     auto
@@ -128,7 +118,7 @@ const PatientView = () => {
                   </Button>
                 </Table.Cell>
                 <Table.Cell>
-                <Button
+                  <Button
                     bordered
                     color="primary"
                     auto
@@ -142,6 +132,7 @@ const PatientView = () => {
         </Table>
 
         {/* Add New Patient Button */}
+        <Spacer y={1} />
         <Button shadow color="primary" auto onClick={() => showModal()}>
           Add New Patient
         </Button>
@@ -152,7 +143,7 @@ const PatientView = () => {
           visible={modalVisible}
           hideModal={hideModal}
         />
-      </div>
+      </Container>
     );
   }
 };

@@ -45,7 +45,8 @@ const Modal = ({ activePatient, visible, hideModal }) => {
       blur
       aria-labelledby="modal-title"
       open={visible}
-      onClose={hideModal}>
+      onClose={hideModal}
+      width="40%">
       <NextModal.Header>
         <Text id="modal-title" size={18}>
           {demographicsFields.firstName && demographicsFields.lastName

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Text, Input, Radio, Checkbox, Card } from "@nextui-org/react";
+import { Grid, Text, Input, Radio, Checkbox, Container } from "@nextui-org/react";
 
 const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
   const handleChange = (propertyName, newValue) => {
@@ -10,7 +10,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
   };
 
   return (
-    <Card>
+    <Container>
       <Grid.Container>
         <Grid xs={12} justify="center">
           <Text h1>Demographics</Text>
@@ -103,7 +103,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
           </>
         )}
       </Grid.Container>
-    </Card>
+    </Container>
   );
 };
 
