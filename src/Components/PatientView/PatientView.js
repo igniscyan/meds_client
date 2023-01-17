@@ -30,12 +30,13 @@ const PatientView = () => {
       console.log(rows);
 
       const res = rows.filter((obj) => {
-        if (obj.first_name.toLowerCase().includes(searchTerm.toLowerCase()) || obj.last_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+        if (
+          obj.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          obj.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
           return obj;
         }
-        
       });
-
       return res;
     }
   }

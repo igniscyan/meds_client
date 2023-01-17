@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import DemographicsCard from "../DemographicsCard";
-import { Modal as NextModal, Text } from "@nextui-org/react";
+import { Modal as NextModal, Text, Button } from "@nextui-org/react";
 
 const Modal = ({ activePatient, visible, hideModal }) => {
   const [demographicsFields, setDemographicsFields] = useState({
-    firstName: activePatient?.["first_name"],
-    lastName: activePatient?.["last_name"],
-    dateOfBirth: activePatient?.["dob"],
-    sex: activePatient?.["gender"],
+    first_name: activePatient?.["first_name"],
+    last_name: activePatient?.["last_name"],
+    dob: activePatient?.["dob"],
+    gender: activePatient?.["gender"],
     smoker: activePatient?.["smoker"] === 1,
     // Need to get these values via a query:
     gyn: undefined,
@@ -19,19 +19,19 @@ const Modal = ({ activePatient, visible, hideModal }) => {
     if (activePatient)
       setDemographicsFields((fields) => ({
         ...fields,
-        firstName: activePatient?.["first_name"],
-        lastName: activePatient?.["last_name"],
-        dateOfBirth: activePatient?.["dob"],
-        sex: activePatient?.["gender"],
+        first_name: activePatient?.["first_name"],
+        last_name: activePatient?.["last_name"],
+        dob: activePatient?.["dob"],
+        gender: activePatient?.["gender"],
         smoker: activePatient?.["smoker"] === 1,
       }));
 
     return () => {
       setDemographicsFields({
-        firstName: "",
-        lastName: "",
-        dateOfBirth: "",
-        sex: "",
+        first_name: "",
+        last_name: "",
+        dob: "",
+        gender: "",
         smoker: false,
         gyn: "",
         pregnant: "",
@@ -61,6 +61,7 @@ const Modal = ({ activePatient, visible, hideModal }) => {
           setPatientInfo={setDemographicsFields}
         />
       </NextModal.Body>
+
     </NextModal>
   );
 };

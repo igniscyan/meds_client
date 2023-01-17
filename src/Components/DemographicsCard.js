@@ -1,5 +1,7 @@
 import React from "react";
-import { Grid, Text, Input, Radio, Checkbox, Container } from "@nextui-org/react";
+import { Grid, Text, Input, Radio, Checkbox, Container, Button } from "@nextui-org/react";
+//Post patient mutation I made, unsure if this is right? FOR BOYD. 
+import { postPatient } from "../Queries/usePostPatient";
 
 const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
   const handleChange = (propertyName, newValue) => {
@@ -19,7 +21,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
           <Input
             label="First Name"
             placeholder="John"
-            value={patientInfo.firstName}
+            value={patientInfo.first_name}
             onChange={(e) => handleChange("firstName", e.target.value)}
           />
         </Grid>
@@ -27,7 +29,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
           <Input
             label="Last Name"
             placeholder="Doe"
-            value={patientInfo.lastName}
+            value={patientInfo.last_name}
             onChange={(e) => handleChange("lastName", e.target.value)}
           />
         </Grid>
@@ -36,7 +38,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
             label="Date of Birth"
             placeholder="01/01/2000"
             type="date"
-            value={patientInfo.dateOfBirth}
+            value={patientInfo.dob}
             onChange={(e) => handleChange("dateOfBirth", e.target.value)}
           />
         </Grid>
@@ -45,7 +47,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
             orientation="horizontal"
             color="gradient"
             label="Sex"
-            value={patientInfo.sex}
+            value={patientInfo.gender}
             onChange={(e) => handleChange("sex", e)}>
             <Radio value="Male" color="primary">
               Male
@@ -71,8 +73,8 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
         <Grid xs={3} justify="center">
           <Input label="Weight" type="number" />
         </Grid>
-
-        {patientInfo.sex === "Female" && (
+// Ignore for now, this will be something to fix with a database restructure.
+        {/* {patientInfo.sex === "Female" && (
           <>
             <Grid xs={4} justify="center">
               <Checkbox
@@ -101,7 +103,10 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
               />
             </Grid>
           </>
-        )}
+        )} */}
+        <Grid xs={4} justify="right">
+          <Button>Save</Button>
+        </Grid>
       </Grid.Container>
     </Container>
   );
