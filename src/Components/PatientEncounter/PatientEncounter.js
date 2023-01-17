@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Container,
   Grid,
   Text,
   Input,
@@ -11,6 +12,110 @@ import {
 import AddField from "../AddField";
 import DemographicsCard from "../DemographicsCard";
 import { usePostPatientEncounterMutation } from "../../Queries/usePostPatientEncounterMutation";
+import Select from "react-select";
+
+const complaintsObj = [
+  {
+    value: 1,
+    label: "ABDOMINAL PAIN",
+  },
+  {
+    value: 2,
+    label: "ANXIETY/NERVOUSNESS",
+  },
+  {
+    value: 3,
+    label: "BACK PAIN",
+  },
+  {
+    value: 4,
+    label: "CHEST PAIN",
+  },
+  {
+    value: 5,
+    label: "COUGH",
+  },
+  {
+    value: 6,
+    label: "DEPRESSION",
+  },
+  {
+    value: 7,
+    label: "DIARRHEA",
+  },
+  {
+    value: 8,
+    label: "DIZZINESS",
+  },
+  {
+    value: 9,
+    label: "EARACHE",
+  },
+  {
+    value: 10,
+    label: "FATIGUE",
+  },
+  {
+    value: 11,
+    label: "FEVER/CHILLS/SWEATS",
+  },
+  {
+    value: 12,
+    label: "HEADACHE",
+  },
+  {
+    value: 13,
+    label: "JOINT PAIN",
+  },
+  {
+    value: 14,
+    label: "NECK MASS",
+  },
+  {
+    value: 15,
+    label: "PALPITATIONS",
+  },
+  {
+    value: 16,
+    label: "RASH",
+  },
+  {
+    value: 17,
+    label: "SHORTNESS OF BREATH",
+  },
+  {
+    value: 18,
+    label: "SOFT TISSUE INJURY",
+  },
+  {
+    value: 19,
+    label: "SORE THROAT",
+  },
+  {
+    value: 20,
+    label: "TENDER NECK",
+  },
+  {
+    value: 21,
+    label: "UPPER RESPIRATORY SYMPTOMS",
+  },
+  {
+    value: 22,
+    label: "URINARY SYMPTOMS",
+  },
+  {
+    value: 23,
+    label: "VAGINAL DISCHARGE",
+  },
+  {
+    value: 24,
+    label: "VOMITING",
+  },
+  {
+    value: 25,
+    label: "VISION CHANGES",
+  },
+];
 
 const PatientEncounter = () => {
   const [encounterFields, setEncounterFields] = useState({
@@ -51,105 +156,47 @@ const PatientEncounter = () => {
   };
 
   return (
-      <Card>
-        <Grid.Container gap={2.5} justify="center">
-          {/* Vitals Section */}
-          <Grid xs={12} justify="left">
-            <Text h1>Vitals</Text>
-          </Grid>
-          <Grid xs={2}>
-            <Input bordered type="number" labelPlaceholder="Temperature" />
-          </Grid>
-          <Grid xs={2}>
-            <Input
-              bordered
-              type="number"
-              labelPlaceholder="Systolic Pressure"
-            />
-          </Grid>
-          <Grid xs={2}>
-            <Input
-              bordered
-              type="number"
-              labelPlaceholder="Diastolic Pressure"
-            />
-          </Grid>
-          <Grid xs={2}>
-            <Input bordered type="number" labelPlaceholder="Heart Rate" />
-          </Grid>
-          <Grid xs={2}>
-            <Input bordered type="number" labelPlaceholder="Respiratory" />
-          </Grid>
+    <Container>
+      <Grid.Container gap={2.5} justify="center">
+        {/* Vitals Section */}
+        <Grid xs={12} justify="left">
+          <Text h1>Vitals</Text>
+        </Grid>
+        <Grid xs={2}>
+          <Input bordered type="number" labelPlaceholder="Temperature" />
+        </Grid>
+        <Grid xs={2}>
+          <Input bordered type="number" labelPlaceholder="Systolic Pressure" />
+        </Grid>
+        <Grid xs={2}>
+          <Input bordered type="number" labelPlaceholder="Diastolic Pressure" />
+        </Grid>
+        <Grid xs={2}>
+          <Input bordered type="number" labelPlaceholder="Heart Rate" />
+        </Grid>
+        <Grid xs={2}>
+          <Input bordered type="number" labelPlaceholder="Respiratory" />
+        </Grid>
 
-          {/* Chief Complaint Section */}
-          <Grid xs={12} justify="left">
-            <Text h1>Chief Complaint</Text>
-          </Grid>
-          <Grid xs={12} justify="center">
-            <Checkbox.Group size="xs" orientation="horizontal">
-              <Checkbox value="ABDOMINAL PAIN" label="ABDOMINAL PAIN" />
-              <Checkbox
-                value="ANXIETY/NERVOUSNESS"
-                label="ANXIETY/NERVOUSNESS"
-              />
-              <Checkbox value="BACK PAIN" label="BACK PAIN" />
-              <Checkbox value="CHEST PAIN" label="CHEST PAIN" />
-              <Checkbox value="COUGH" label="COUGH" />
-              <Checkbox value="DEPRESSION" label="DEPRESSION" />
-              <Checkbox value="DIARRHEA" label="DIARRHEA" />
-            </Checkbox.Group>
-          </Grid>
-          <Grid xs={12} justify="center">
-            <Checkbox.Group size="xs" orientation="horizontal">
-              <Checkbox value="DIZZINESS" label="DIZZINESS" />
-              <Checkbox value="EARACHE" label="EARACHE" />
-              <Checkbox value="FATGIUE" label="FATIGUE" />
-              <Checkbox
-                value="FEVER/CHILLS/SWEATS"
-                label="FEVER/CHILLS/SWEATS"
-              />
-              <Checkbox value="HEADACHE" label="HEADACHE" />
-              <Checkbox value="JOINT PAIN" label="JOINT PAIN" />
-              <Checkbox value="NAUSEA" label="NAUSEA" />
-            </Checkbox.Group>
-          </Grid>
-          <Grid xs={12} justify="center">
-            <Checkbox.Group size="xs" orientation="horizontal">
-              <Checkbox value="NECK MASS" label="NECK MASS" />
-              <Checkbox value="NUMBNESS" label="NUMBNESS" />
-              <Checkbox value="PALPITATIONS" label="PALPITATIONS" />
-              <Checkbox value="RASH" label="RASH" />
-              <Checkbox
-                value="SHORTNESS OF BREATH"
-                label="SHORTNESS OF BREATH"
-              />
-              <Checkbox value="SOFT TISSUE INJURY" label="SOFT TISSUE INJURY" />
-              <Checkbox value="SORE THROAT" label="SORE THROAT" />
-            </Checkbox.Group>
-          </Grid>
-          <Grid xs={12} justify="center">
-            <Checkbox.Group size="xs" orientation="horizontal">
-              <Checkbox value="TENDER NECK" label="TENDER NECK" />
-              <Checkbox
-                value="UPPER RESPIRATORY SYMPTOMS"
-                label="UPPER RESPIRATORY SYMPTOMS"
-              />
-              <Checkbox value="URINARY SYMPTOMS" label="URINARY SYMPTOMS" />
-              <Checkbox value="VAGINAL DISCHARGE" label="VAGINAL DISCHARGE" />
-              <Checkbox value="VOMITING" label="VOMITING" />
-              <Checkbox value="VISION CHANGES" label="VISION CHANGES" />
-            </Checkbox.Group>
-          </Grid>
+        {/* Chief Complaint Section */}
+        <Grid xs={12} justify="left">
+          <Text h1>Chief Complaint</Text>
+        </Grid>
+        <Grid xs={12} justify="left">
+          <div style={{width: '100%'}}>
+            <Select options={complaintsObj} autosize={true} />
+          </div>
+        </Grid>
 
-          {/* Add Chief Complaint Section */}
-          <Grid xs={12} justify="center">
-            <AddField name="Chief Complaint" />
-          </Grid>
-          <Grid xs={12} height="1200px">
-            <Textarea
-              label="Enter Triage Notes"
-              height="100%"
-              value={`CHIEF COMPLAINT: 
+        {/* Add Chief Complaint Section */}
+        {/* <Grid xs={12} justify="center">
+          <AddField name="Chief Complaint" />
+        </Grid> */}
+        <Grid xs={12} height="1200px">
+          <Textarea
+            label="Enter Triage Notes"
+            height="100%"
+            value={`CHIEF COMPLAINT: 
             
             HPI: 
             
@@ -215,47 +262,47 @@ const PatientEncounter = () => {
             PSYCHIATRIC: 
             MUSCULOSKELTAL: 
             HEMATOLOGIC/LYMPHATIC:`}
-              size="l"
-              status="secondary"
-              fullWidth
-            />
-          </Grid>
+            size="l"
+            status="secondary"
+            fullWidth
+          />
+        </Grid>
 
-          <Grid xs={12} height>
-            <Textarea
-              label="Enter Pharmacy Notes"
-              height="auto"
-              value=""
-              size="l"
-              status="secondary"
-              fullWidth
-            />
-          </Grid>
-          <Grid xs={12} height>
-            <Textarea
-              label="Dental Notes"
-              height="auto"
-              value=""
-              size="l"
-              status="secondary"
-              fullWidth
-            />
-          </Grid>
-          <Grid xs={12} height>
-            <Textarea
-              label="Optometrist Notes"
-              height="auto"
-              value=""
-              size="l"
-              status="secondary"
-              fullWidth
-            />
-          </Grid>
+        <Grid xs={12} height>
+          <Textarea
+            label="Enter Pharmacy Notes"
+            height="auto"
+            value=""
+            size="l"
+            status="secondary"
+            fullWidth
+          />
+        </Grid>
+        <Grid xs={12} height>
+          <Textarea
+            label="Dental Notes"
+            height="auto"
+            value=""
+            size="l"
+            status="secondary"
+            fullWidth
+          />
+        </Grid>
+        <Grid xs={12} height>
+          <Textarea
+            label="Optometrist Notes"
+            height="auto"
+            value=""
+            size="l"
+            status="secondary"
+            fullWidth
+          />
+        </Grid>
 
-          {/* Submit Button */}
-          {/* <Button onPress={submitForm}>Hope this works...</Button> */}
-        </Grid.Container>
-      </Card>
+        {/* Submit Button */}
+        {/* <Button onPress={submitForm}>Hope this works...</Button> */}
+      </Grid.Container>
+    </Container>
   );
 };
 
