@@ -1,6 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function usePostPatientEncounterMutation(patientInfo) {
+  const queryClient = useQueryClient();
+  
   async function postPatient() {
     const pid = patient_id || 0
     const res = await fetch(
@@ -19,5 +21,12 @@ export function usePostPatientEncounterMutation(patientInfo) {
     return res.json();
   }
 
-  return useMutation(postPatient);
+  return useMutation(postPatient, {
+    onSuccess: (data, variables) => {
+      // This might not work at all:
+      queryClient.invalidateQueries(["get"]);
+    },
+    onError: (data, variables) => {},
+    onSettled: (data, variables) => {},
+  });
 }
