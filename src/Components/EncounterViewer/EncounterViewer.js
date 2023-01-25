@@ -12,6 +12,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { useGetEncounters as getEncounters } from "../../Queries/useGetPatientEncounters";
 import {formatDateString} from "../../utils/stringUtils";
+import {complaintsObj} from "../utils";
 
 const EncounterViewer = (props) => {
   const {patientId} = useParams();
@@ -35,7 +36,7 @@ const EncounterViewer = (props) => {
                 <Card.Divider />
                 <Card.Body css={{ py: "$10" }}>
                   <Text h1>Chief Complaints</Text>
-                  <Text> {encounter.chief_complaint}</Text>
+                  <Text> {complaintsObj[encounter.chief_complaint-1].label}</Text>
                 </Card.Body>
                 <Card.Divider />
                 <Card.Footer>
