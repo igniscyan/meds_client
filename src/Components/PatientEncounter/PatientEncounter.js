@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -12,7 +12,9 @@ import {
 import AddField from "../AddField";
 import DemographicsCard from "../DemographicsCard";
 import { usePostPatientEncounterMutation } from "../../Queries/usePostPatientEncounterMutation";
+import { useGetPatientEncounterById } from "../../Queries/useGetPatientEncounterById";
 import Select from "react-select";
+import { useParams } from "react-router-dom";
 
 const complaintsObj = [
   {
@@ -119,22 +121,32 @@ const complaintsObj = [
 
 const PatientEncounter = () => {
   const [encounterFields, setEncounterFields] = useState({
+    chief_complaint: null,
     height: null,
-    weight: null,
-    temperature: null,
+    patient_weight: null,
+    temp: null,
     systolic: null,
     diastolic: null,
-    heartRate: null,
-    respRate: null,
-    triageNote: null,
-    medNote: null,
-    pharmNote: null,
-    eyeNote: null,
-    dentalNote: null,
-    goodiesNote: null,
+    heart_rate: null,
+    resp_rate: null,
+    triage_note: null,
+    med_note: null,
+    pharm_note: null,
+    eye_note: null,
+    dental_note: null,
+    goodies_note: null,
     location: null,
     open: null,
   });
+
+  const {encounterId} = useParams();
+  const existingEncounter = useGetPatientEncounterById(encounterId);
+  useEffect(() => {
+    if(existingEncounter.data && existingEncounter.data !== -1) {
+      const encounterFieldLabels = Object.keys(encounterFields);
+      encounterFieldLabels.forEach(field => setEncounterFields({...encounterFields, [field]: existingEncounter.data[0][field]}));
+    }
+  }, [existingEncounter.status]);
 
   const addPatientEncounter = usePostPatientEncounterMutation();
 
@@ -163,19 +175,19 @@ const PatientEncounter = () => {
           <Text h1>Vitals</Text>
         </Grid>
         <Grid xs={2}>
-          <Input bordered type="number" labelPlaceholder="Temperature" />
+          <Input bordered type="number" labelPlaceholder="Temperature" onChange={e => handleChange("temp", e.target.value)} />
         </Grid>
         <Grid xs={2}>
-          <Input bordered type="number" labelPlaceholder="Systolic Pressure" />
+          <Input bordered type="number" labelPlaceholder="Systolic Pressure" onChange={e => handleChange("systolic", e.target.value)} />
         </Grid>
         <Grid xs={2}>
-          <Input bordered type="number" labelPlaceholder="Diastolic Pressure" />
+          <Input bordered type="number" labelPlaceholder="Diastolic Pressure" onChange={e => handleChange("diastolic", e.target.value)} />
         </Grid>
         <Grid xs={2}>
-          <Input bordered type="number" labelPlaceholder="Heart Rate" />
+          <Input bordered type="number" labelPlaceholder="Heart Rate" onChange={e => handleChange("heartRate", e.target.value)} />
         </Grid>
         <Grid xs={2}>
-          <Input bordered type="number" labelPlaceholder="Respiratory" />
+          <Input bordered type="number" labelPlaceholder="Respiratory" onChange={e => handleChange("respRate", e.target.value)} />
         </Grid>
 
         {/* Chief Complaint Section */}
@@ -184,7 +196,7 @@ const PatientEncounter = () => {
         </Grid>
         <Grid xs={12} justify="left">
           <div style={{width: '100%'}}>
-            <Select options={complaintsObj} autosize={true} />
+            <Select options={complaintsObj} autosize={true} onChange={e => handleChange("chief_complaint", e.value)}/>
           </div>
         </Grid>
 
@@ -268,7 +280,7 @@ const PatientEncounter = () => {
           />
         </Grid>
 
-        <Grid xs={12} height>
+        <Grid xs={12} >
           <Textarea
             label="Enter Pharmacy Notes"
             height="auto"
@@ -276,9 +288,10 @@ const PatientEncounter = () => {
             size="l"
             status="secondary"
             fullWidth
+            onChange={e => handleChange("pharmNote", e.target.value)}
           />
         </Grid>
-        <Grid xs={12} height>
+        <Grid xs={12} >
           <Textarea
             label="Dental Notes"
             height="auto"
@@ -286,9 +299,10 @@ const PatientEncounter = () => {
             size="l"
             status="secondary"
             fullWidth
+            onChange={e => handleChange("dentalNote", e.target.value)}
           />
         </Grid>
-        <Grid xs={12} height>
+        <Grid xs={12} >
           <Textarea
             label="Optometrist Notes"
             height="auto"
@@ -296,11 +310,12 @@ const PatientEncounter = () => {
             size="l"
             status="secondary"
             fullWidth
+            onChange={e => handleChange("eyeNote", e.target.value)}
           />
         </Grid>
 
         {/* Submit Button */}
-        {/* <Button onPress={submitForm}>Hope this works...</Button> */}
+        <Button onPress={submitForm}>Hope this works...</Button>
       </Grid.Container>
     </Container>
   );

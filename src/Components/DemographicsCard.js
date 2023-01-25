@@ -1,9 +1,7 @@
 import React from "react";
 import { Grid, Text, Input, Radio, Checkbox, Container, Button } from "@nextui-org/react";
-//Post patient mutation I made, unsure if this is right? FOR BOYD. 
-import { postPatient } from "../Queries/usePostPatient";
 
-const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
+const DemographicsCard = ({ patientInfo, setPatientInfo, hideModal, saveMutation, patientId }) => {
   const handleChange = (propertyName, newValue) => {
     setPatientInfo((patientInfo) => ({
       ...patientInfo,
@@ -22,7 +20,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
             label="First Name"
             placeholder="John"
             value={patientInfo.first_name}
-            onChange={(e) => handleChange("firstName", e.target.value)}
+            onChange={(e) => handleChange("first_name", e.target.value)}
           />
         </Grid>
         <Grid xs={4} justify="center">
@@ -30,7 +28,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
             label="Last Name"
             placeholder="Doe"
             value={patientInfo.last_name}
-            onChange={(e) => handleChange("lastName", e.target.value)}
+            onChange={(e) => handleChange("last_name", e.target.value)}
           />
         </Grid>
         <Grid xs={4} justify="center">
@@ -39,7 +37,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
             placeholder="01/01/2000"
             type="date"
             value={patientInfo.dob}
-            onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+            onChange={(e) => handleChange("dob", e.target.value)}
           />
         </Grid>
         <Grid xs={3} justify="center">
@@ -48,7 +46,8 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
             color="gradient"
             label="Sex"
             value={patientInfo.gender}
-            onChange={(e) => handleChange("sex", e)}>
+            onChange={(e) => handleChange("gender", e)}
+            >
             <Radio value="Male" color="primary">
               Male
             </Radio>
@@ -60,20 +59,13 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
         <Grid xs={3} justify="center">
           <Checkbox
             isDisabled={false}
-            checked={patientInfo.smoker}
+            isSelected={patientInfo.smoker}
             onChange={(checked) => handleChange("smoker", checked)}
             aria-label="smoker">
             Smoker
           </Checkbox>
         </Grid>
-        <Grid xs={3} justify="center">
-          <Input label="Height" type="number" />
-        </Grid>
-
-        <Grid xs={3} justify="center">
-          <Input label="Weight" type="number" />
-        </Grid>
-// Ignore for now, this will be something to fix with a database restructure.
+{/* // Ignore for now, this will be something to fix with a database restructure. */}
         {/* {patientInfo.sex === "Female" && (
           <>
             <Grid xs={4} justify="center">
@@ -105,7 +97,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo }) => {
           </>
         )} */}
         <Grid xs={4} justify="right">
-          <Button>Save</Button>
+          <Button onPress={(e) =>  saveMutation.mutate([patientInfo, hideModal, patientId])}>Save</Button>
         </Grid>
       </Grid.Container>
     </Container>

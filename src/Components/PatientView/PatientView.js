@@ -3,6 +3,8 @@ import { useGet as GetPatients } from "../../Queries/useGet";
 import { Container, Button, Table, Spacer, Input } from "@nextui-org/react";
 import DemographicsCard from "../DemographicsCard";
 import Modal from "./Modal";
+import {Link} from "react-router-dom";
+import { formatDateString } from "../../utils/stringUtils";
 
 const PatientView = () => {
   const patients = GetPatients();
@@ -27,8 +29,6 @@ const PatientView = () => {
     }
 
     if (rows.length > 0) {
-      console.log(rows);
-
       const res = rows.filter((obj) => {
         if (
           obj.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -40,8 +40,6 @@ const PatientView = () => {
       return res;
     }
   }
-
-  console.log(patients.data);
 
   if (patients.isLoading) return <div>Loading patients...</div>;
 
@@ -60,7 +58,6 @@ const PatientView = () => {
     }));
 
     const filteredRows = filterRows(rows);
-    console.log(filteredRows);
 
     return (
       <Container>
@@ -86,7 +83,7 @@ const PatientView = () => {
             <Table.Column key="dob">DOB</Table.Column>
             <Table.Column key="gender">GENDER</Table.Column>
             <Table.Column key="tobacco">TOBACCO</Table.Column>
-            <Table.Column key="demographics">VIEW DEMOGRAPHICS</Table.Column>
+            <Table.Column key="demographics">EDIT DEMOGRAPHICS</Table.Column>
             <Table.Column key="history"></Table.Column>
             <Table.Column key="addEncounter">Add Encounter</Table.Column>
           </Table.Header>
@@ -97,7 +94,7 @@ const PatientView = () => {
                 <Table.Cell>
                   {patient.first_name} {patient.last_name}
                 </Table.Cell>
-                <Table.Cell>{patient.dob}</Table.Cell>
+                <Table.Cell>{formatDateString(patient.dob)}</Table.Cell>
                 <Table.Cell>{patient.gender}</Table.Cell>
                 <Table.Cell>{patient.smoker ? "yes" : "no"}</Table.Cell>
                 <Table.Cell>
@@ -110,22 +107,24 @@ const PatientView = () => {
                   </Button>
                 </Table.Cell>
                 <Table.Cell>
+                  <Link to={`/${patient.id}/encounters`}>
                   <Button
                     bordered
                     color="primary"
-                    auto
-                    onClick={() => showModal(patient)}>
+                    auto>
                     View Encounters
                   </Button>
+                  </Link>
                 </Table.Cell>
                 <Table.Cell>
+                  <Link to={`/${patient.id}/encounters/new`}>
                   <Button
                     bordered
                     color="primary"
-                    auto
-                    onClick={() => showModal(patient)}>
+                    auto>
                     + Add
                   </Button>
+                  </Link>
                 </Table.Cell>
               </Table.Row>
             ))}

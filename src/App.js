@@ -6,6 +6,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./App.css";
 import PatientView from "./Components/PatientView/PatientView";
 import PatientEncounter from "./Components/PatientEncounter/PatientEncounter";
+import EncounterViewer from "./Components/EncounterViewer/EncounterViewer"
 
 import { BrowserRouter as Router, Routes, Link, Route } from "react-router-dom";
 // import axios from 'axios';
@@ -37,13 +38,15 @@ const App = () => {
               </Navbar.Brand>
               <Navbar.Content>
                 <Navbar.Link href="/">Patient View</Navbar.Link>
-                <Navbar.Link href="/patient-encounter">Patient Encounter</Navbar.Link>
               </Navbar.Content>
             </Navbar>
           </div>
           <Routes>
             <Route path="/" element={<PatientView />} />
-            <Route path="patient-encounter" element={<PatientEncounter />} />
+            <Route path=":patientId/encounters/" >
+              <Route index element={<EncounterViewer  />}/>
+              <Route path=":encounterId" element={<PatientEncounter  />} />
+            </Route>
           </Routes>
         </Router>
       </NextUIProvider>

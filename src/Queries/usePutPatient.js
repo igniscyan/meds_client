@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function usePostPatient() {
+export function usePutPatient() {
   const queryClient = useQueryClient();
   
-  async function postPatient([patientInfo, hideModal]) {
+  async function putPatient([patientInfo, hideModal, patientId]) {
     const res = await fetch(
-      `http://localhost:3050/api/insert/patient/`,
+      `http://localhost:3050/api/update/patient/${patientId}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -20,7 +20,7 @@ export function usePostPatient() {
     return res.json();
   }
 
-  return useMutation(postPatient, {
+  return useMutation(putPatient, {
     onSuccess: (data, variables) => {
       const [_, hideModal] = variables;
       queryClient.invalidateQueries(["get"]);

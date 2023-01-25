@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import DemographicsCard from "../DemographicsCard";
 import { Modal as NextModal, Text, Button } from "@nextui-org/react";
+import { usePostPatient } from "../../Queries/usePostPatient";
+import { usePutPatient } from "../../Queries/usePutPatient";
+
 
 const Modal = ({ activePatient, visible, hideModal }) => {
   const [demographicsFields, setDemographicsFields] = useState({
@@ -12,8 +15,12 @@ const Modal = ({ activePatient, visible, hideModal }) => {
     // Need to get these values via a query:
     gyn: undefined,
     pregnant: undefined,
-    lastPeriod: undefined,
+    last_period: undefined,
   });
+
+  const postPatient = usePostPatient();
+  const putPatient = usePutPatient();
+  const saveMutation = activePatient ? putPatient : postPatient;
 
   useEffect(() => {
     if (activePatient)
@@ -35,7 +42,7 @@ const Modal = ({ activePatient, visible, hideModal }) => {
         smoker: false,
         gyn: "",
         pregnant: "",
-        lastPeriod: "",
+        last_period: "",
       });
     };
   }, [activePatient]);
@@ -49,8 +56,8 @@ const Modal = ({ activePatient, visible, hideModal }) => {
       width="40%">
       <NextModal.Header>
         <Text id="modal-title" size={18}>
-          {demographicsFields.firstName && demographicsFields.lastName
-            ? `${demographicsFields.firstName} ${demographicsFields.lastName}`
+          {demographicsFields.first_name || demographicsFields.last_name
+            ? `${demographicsFields?.first_name} ${demographicsFields?.last_name}`
             : "Add New Patient"}
         </Text>
       </NextModal.Header>
@@ -59,6 +66,9 @@ const Modal = ({ activePatient, visible, hideModal }) => {
         <DemographicsCard
           patientInfo={demographicsFields}
           setPatientInfo={setDemographicsFields}
+          hideModal={hideModal}
+          saveMutation={saveMutation}
+          patientId={activePatient?.id}
         />
       </NextModal.Body>
 
