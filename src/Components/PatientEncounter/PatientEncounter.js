@@ -130,15 +130,15 @@ const PatientEncounter = () => {
 
         {/* Add Chief Complaint Section */}
         {/* <Grid xs={12} justify="center">
-          <AddField name="Chief Complaint" />
+          <AddField name="Chief Complaint" /> test
         </Grid> */}
-        <Grid xs={12} height="1200px">
+        <Grid xs={12} css={{height: "1000px" }} width="100%">
           <Textarea
             label="Enter Triage Notes"
-            height="100%"
+            style={{ width: '100%', height: '800px' }}
+            size='xl'
             value={encounterFields.triage_note || triageTemplate}
             onChange={e => handleChange("triage_note", e.target.value)}
-            size="l"
             status="secondary"
             fullWidth
           />

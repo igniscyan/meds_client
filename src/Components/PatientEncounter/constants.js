@@ -40,7 +40,7 @@ export const triageTemplate = `CHIEF COMPLAINT:
             SEXUAL HX: 
             SLEEP: 
             TRAVEL: 
-            EXCERCISE: 
+            EXERCISE: 
             HOBBIES: 
             SAFETY: 
             RELIGION:
