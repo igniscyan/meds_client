@@ -14,6 +14,7 @@ import DemographicsCard from "../DemographicsCard";
 import { usePostPatientEncounterMutation } from "../../Queries/usePostPatientEncounterMutation";
 import { usePutPatientEncounter } from "../../Queries/usePutPatientEncounterMutation";
 import { useGetPatientEncounterById } from "../../Queries/useGetPatientEncounterById";
+import {useGetPatientName as getPatientName} from "../../Queries/useGetPatientName";
 import Select from "react-select";
 import { useParams } from "react-router-dom";
 import { triageTemplate } from "./constants";
@@ -40,7 +41,7 @@ const PatientEncounter = () => {
     open: null,
   });
   const {patientId, encounterId} = useParams();
-
+  console.log('Patient ID: ', patientId);
   const existingEncounter = useGetPatientEncounterById(encounterId);
   useEffect(() => {
     if(existingEncounter.data && existingEncounter.data !== -1) {
@@ -51,6 +52,11 @@ const PatientEncounter = () => {
   
   const addPatientEncounter = usePostPatientEncounterMutation();
   const updatePatientEncounter = usePutPatientEncounter();
+  const patientName = getPatientName(patientId);
+
+  if(patientName.isLoading) return <div>Loading patient name...</div>;
+  if(patientName.isError) return <div> Error loading patient name...</div>;
+
   const submitForm = () => {
     const mutation = encounterId === "new" ? addPatientEncounter : updatePatientEncounter;
     // TODO: need to get the patient's gyn info before making this mutation
@@ -88,9 +94,10 @@ const PatientEncounter = () => {
   return (
     <Container>
       <Grid.Container gap={2.5} justify="center">
+        <Grid xs={12} justify="center"><Text h1> Encounter: {patientName.data[0].first_name} {patientName.data[0].last_name} </Text></Grid>
         {/* Vitals Section */}
         <Grid xs={12} justify="left">
-          <Text h1>Vitals</Text>
+          <Text h2>Vitals</Text>
         </Grid>
         <Grid xs={2}>
           <Input bordered type="number" labelPlaceholder="Temperature" value={encounterFields.temp || ""} onChange={e => handleChange("temp", e.target.value)} />
@@ -110,7 +117,7 @@ const PatientEncounter = () => {
 
         {/* Chief Complaint Section */}
         <Grid xs={12} justify="left">
-          <Text h1>Chief Complaint</Text>
+          <Text h2>Chief Complaint</Text>
         </Grid>
         <Grid xs={12} justify="left">
           <div style={{width: '100%'}}>
@@ -169,7 +176,7 @@ const PatientEncounter = () => {
         </Grid>
 
         {/* Submit Button */}
-        <Button onPress={submitForm}>Hope this works...</Button>
+        <Button onPress={submitForm}>Submit</Button>
       </Grid.Container>
     </Container>
   );
