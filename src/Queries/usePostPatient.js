@@ -5,7 +5,7 @@ export function usePostPatient() {
   
   async function postPatient([patientInfo, hideModal]) {
     const res = await fetch(
-      `http://localhost:3050/api/insert/patient/`,
+      `/api/insert/patient/`,
       {
         method: "POST",
         headers: {

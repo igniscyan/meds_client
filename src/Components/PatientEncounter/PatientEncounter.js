@@ -91,10 +91,13 @@ const PatientEncounter = () => {
     setEncounterFields({ ...encounterFields, [propertyName]: newValue });
   };
 
+  let encounterDate = (existingEncounter.data[0]) ? 'Encounter Date: ' + existingEncounter.data[0].created_at : '';  
+
   return (
     <Container>
       <Grid.Container gap={2.5} justify="center">
-        <Grid xs={12} justify="center"><Text h1> Encounter: {patientName.data[0].first_name} {patientName.data[0].last_name} </Text></Grid>
+        <Grid xs={12} justify="center"><Text h1> Encounter: {patientName.data[0].first_name} {patientName.data[0].last_name}</Text></Grid>
+        <Grid xs={12} justify="center"><Text h3>{encounterDate} </Text></Grid>
         {/* Vitals Section */}
         <Grid xs={12} justify="left">
           <Text h2>Vitals</Text>

@@ -5,7 +5,7 @@ export function usePutPatient() {
   
   async function putPatient([patientInfo, hideModal, patientId]) {
     const res = await fetch(
-      `http://localhost:3050/api/update/patient/${patientId}`,
+      `/api/update/patient/${patientId}`,
       {
         method: "PUT",
         headers: {

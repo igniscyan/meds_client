@@ -7,7 +7,7 @@ export function usePutPatientEncounter() {
   
   async function putPatientEncounter([patient_encounter, patient_id, encounter_id]) {
     const res = await fetch(
-      `http://localhost:3050/api/update/patient_encounter/${encounter_id}`,
+      `/api/update/patient_encounter/${encounter_id}`,
       {
         method: "PUT",
         headers: {

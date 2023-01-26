@@ -6,7 +6,7 @@ export function useGetEncounters(patientID) {
     async function getEncounters(){
         // async fetch request to the /get/ endpoint
         // const res = await fetch(`${server}/api/get/`);
-        const res = await fetch(`http://localhost:3050/api/get/patient_encounters/${patientID}`);
+        const res = await fetch(`/api/get/patient_encounters/${patientID}`);
 
         // if res is an error, throw that error
         if (res.status >= 400) throw new Error(`${res.status}: ${res.statusText}`);

@@ -7,7 +7,7 @@ export function usePostPatientEncounterMutation() {
 
   async function postPatientEncounter([patient_encounter, patient_id]) {
     const res = await fetch(
-      `http://localhost:3050/api/insert/patient_encounter/${patient_id}`,
+      `/api/insert/patient_encounter/${patient_id}`,
       {
         method: "POST",
         headers: {
