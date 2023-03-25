@@ -1,5 +1,5 @@
-import React from "react";
-import { Grid, Text, Input, Radio, Checkbox, Container, Button } from "@nextui-org/react";
+import React, {useState} from "react";
+import { Switch, Grid, Text, Input, Radio, Checkbox, Container, Button } from "@nextui-org/react";
 
 const DemographicsCard = ({ patientInfo, setPatientInfo, hideModal, saveMutation, patientId }) => {
   const handleChange = (propertyName, newValue) => {
@@ -8,6 +8,8 @@ const DemographicsCard = ({ patientInfo, setPatientInfo, hideModal, saveMutation
       [propertyName]: newValue,
     }));
   };
+
+  const [ageFieldIsDob, setAgeFieldIsDob] = useState(true);
 
   return (
     <Container>
@@ -32,13 +34,17 @@ const DemographicsCard = ({ patientInfo, setPatientInfo, hideModal, saveMutation
           />
         </Grid>
         <Grid xs={4} justify="center">
-          <Input
+          {/* TODO: Add a label to make it clear what this does */}
+          <Switch checked={ageFieldIsDob} initialChecked onChange={() => setAgeFieldIsDob(!ageFieldIsDob)} />
+          {ageFieldIsDob ? <Input
             label="Date of Birth"
             placeholder="01/01/2000"
             type="date"
             value={patientInfo.dob}
             onChange={(e) => handleChange("dob", e.target.value)}
-          />
+          />: 
+          <Input bordered type="number" labelPlaceholder="Age" value={patientInfo.age || ""} onChange={e => handleChange("age", e.target.value)} />
+          }
         </Grid>
         <Grid xs={3} justify="center">
           <Radio.Group
@@ -97,7 +103,7 @@ const DemographicsCard = ({ patientInfo, setPatientInfo, hideModal, saveMutation
           </>
         )} */}
         <Grid xs={4} justify="right">
-          <Button onPress={(e) =>  saveMutation.mutate([patientInfo, hideModal, patientId])}>Save</Button>
+          <Button onPress={() =>  saveMutation.mutate([patientInfo, hideModal, patientId])}>Save</Button>
         </Grid>
       </Grid.Container>
     </Container>

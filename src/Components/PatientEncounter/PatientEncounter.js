@@ -40,6 +40,19 @@ const PatientEncounter = () => {
     location: null,
     open: null,
   });
+  //fetch /api/drugs
+  let drugs;
+  fetch('/api/get/drugs/')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    drugs = data;
+  })
+  .catch(error => {
+    console.error(error);
+  });
+  console.log(drugs);
+  
   const {patientId, encounterId} = useParams();
   console.log('Patient ID: ', patientId);
   const existingEncounter = useGetPatientEncounterById(encounterId);
@@ -126,6 +139,15 @@ const PatientEncounter = () => {
           <div style={{width: '100%'}}>
             <Select options={complaintsObj} autosize={true} value={complaintsObj[encounterFields.chief_complaint-1 || 0]} onChange={e => handleChange("chief_complaint", e.value)}/>
           </div>
+        </Grid>
+        <Grid xs={12} justify="left">
+          <Text h2>Disbursed:</Text>
+
+        </Grid>
+        <Grid xs={12} justify = "left">
+          <Select >
+          </Select>
+
         </Grid>
 
         {/* Add Chief Complaint Section */}

@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-globals */
-import React, { useState } from "react";
+import React from "react";
 import { createTheme, NextUIProvider, Navbar, Text} from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./App.css";
 import PatientView from "./Components/PatientView/PatientView";
 import PatientEncounter from "./Components/PatientEncounter/PatientEncounter";
 import EncounterViewer from "./Components/EncounterViewer/EncounterViewer"
+import Queue from "./Components/Queue/Queue";
 
 import { BrowserRouter as Router, Routes, Link, Route } from "react-router-dom";
 // import axios from 'axios';
@@ -38,6 +39,7 @@ const App = () => {
               </Navbar.Brand>
               <Navbar.Content>
                 <Navbar.Link href="/">Patient View</Navbar.Link>
+                <Navbar.Link href="/queue">Queue</Navbar.Link>
               </Navbar.Content>
             </Navbar>
           </div>
@@ -47,6 +49,7 @@ const App = () => {
               <Route index element={<EncounterViewer  />}/>
               <Route path=":encounterId" element={<PatientEncounter  />} />
             </Route>
+            <Route path="/queue" element={<Queue />} />
           </Routes>
         </Router>
       </NextUIProvider>

@@ -10,6 +10,7 @@ const Modal = ({ activePatient, visible, hideModal }) => {
     first_name: activePatient?.["first_name"],
     last_name: activePatient?.["last_name"],
     dob: activePatient?.["dob"],
+    age: activePatient?.["age"],
     gender: activePatient?.["gender"],
     smoker: activePatient?.["smoker"] === 1,
     // Need to get these values via a query:
@@ -29,6 +30,7 @@ const Modal = ({ activePatient, visible, hideModal }) => {
         first_name: activePatient?.["first_name"],
         last_name: activePatient?.["last_name"],
         dob: activePatient?.["dob"],
+        age: activePatient?.["age"],
         gender: activePatient?.["gender"],
         smoker: activePatient?.["smoker"] === 1,
       }));
@@ -38,6 +40,7 @@ const Modal = ({ activePatient, visible, hideModal }) => {
         first_name: "",
         last_name: "",
         dob: "",
+        age: 0,
         gender: "",
         smoker: false,
         gyn: "",
