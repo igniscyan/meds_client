@@ -1,1 +1,1 @@
-export const formatDateString = date => date?.toString().split("T")[0];
+export const formatDateString = (date) => date?.toString().split("T")[0];

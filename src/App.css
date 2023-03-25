@@ -37,12 +37,12 @@
   }
 }
 
-.form{
+.form {
   display: inline-block;
   justify-content: center;
 }
 
-.form input{
+.form input {
   width: 250px;
   margin: 10px;
 }

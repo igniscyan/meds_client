@@ -39,7 +39,8 @@ const AddField = ({ name }) => {
             isDisabled={false}
             checked={saveToDB}
             onChange={(checked) => setSaveToDB(checked)}
-            aria-label="save for future use">
+            aria-label="save for future use"
+          >
             Save for Future Use?
           </Checkbox>
           <Button onPress={handleSubmit}>Submit</Button>

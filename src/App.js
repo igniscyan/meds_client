@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-globals */
 import React from "react";
-import { createTheme, NextUIProvider, Navbar, Text} from "@nextui-org/react";
+import { createTheme, NextUIProvider, Navbar, Text } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./App.css";
 import PatientView from "./Components/PatientView/PatientView";
 import PatientEncounter from "./Components/PatientEncounter/PatientEncounter";
-import EncounterViewer from "./Components/EncounterViewer/EncounterViewer"
+import EncounterViewer from "./Components/EncounterViewer/EncounterViewer";
 import Queue from "./Components/Queue/Queue";
 
 import { BrowserRouter as Router, Routes, Link, Route } from "react-router-dom";
@@ -27,14 +27,15 @@ const App = () => {
       attribute="class"
       value={{
         dark: darkTheme.className,
-      }}>
+      }}
+    >
       <NextUIProvider theme="dark">
         <Router>
           <div>
             <Navbar isBordered variant="sticky">
               <Navbar.Brand>
                 <Text b color="inherit" hideIn="xs">
-                    MEDS
+                  MEDS
                 </Text>
               </Navbar.Brand>
               <Navbar.Content>
@@ -45,9 +46,9 @@ const App = () => {
           </div>
           <Routes>
             <Route path="/" element={<PatientView />} />
-            <Route path=":patientId/encounters/" >
-              <Route index element={<EncounterViewer  />}/>
-              <Route path=":encounterId" element={<PatientEncounter  />} />
+            <Route path=":patientId/encounters/">
+              <Route index element={<EncounterViewer />} />
+              <Route path=":encounterId" element={<PatientEncounter />} />
             </Route>
             <Route path="/queue" element={<Queue />} />
           </Routes>

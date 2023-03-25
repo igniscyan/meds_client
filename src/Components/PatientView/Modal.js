@@ -4,7 +4,6 @@ import { Modal as NextModal, Text, Button } from "@nextui-org/react";
 import { usePostPatient } from "../../Queries/usePostPatient";
 import { usePutPatient } from "../../Queries/usePutPatient";
 
-
 const Modal = ({ activePatient, visible, hideModal }) => {
   const [demographicsFields, setDemographicsFields] = useState({
     first_name: activePatient?.["first_name"],
@@ -56,7 +55,8 @@ const Modal = ({ activePatient, visible, hideModal }) => {
       aria-labelledby="modal-title"
       open={visible}
       onClose={hideModal}
-      width="40%">
+      width="40%"
+    >
       <NextModal.Header>
         <Text id="modal-title" size={18}>
           {demographicsFields.first_name || demographicsFields.last_name
@@ -74,7 +74,6 @@ const Modal = ({ activePatient, visible, hideModal }) => {
           patientId={activePatient?.id}
         />
       </NextModal.Body>
-
     </NextModal>
   );
 };

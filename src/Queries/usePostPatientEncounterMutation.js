@@ -6,16 +6,13 @@ export function usePostPatientEncounterMutation() {
   const queryClient = useQueryClient();
 
   async function postPatientEncounter([patient_encounter, patient_id]) {
-    const res = await fetch(
-      `/api/insert/patient_encounter/${patient_id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(patient_encounter),
-      }
-    );
+    const res = await fetch(`/api/insert/patient_encounter/${patient_id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(patient_encounter),
+    });
 
     if (res.status >= 400) throw new Error(`${res.status}: ${res.statusText}`);
 
@@ -24,10 +21,10 @@ export function usePostPatientEncounterMutation() {
 
   return useMutation(postPatientEncounter, {
     onSuccess: (data, variables) => {
-      const {patient_id} = variables;
+      const { patient_id } = variables;
       queryClient.invalidateQueries(["get", "patient_encounter", patient_id]);
-      
+
       navigate("../");
-    }
+    },
   });
 }

@@ -3,7 +3,7 @@ import { useGet as GetPatients } from "../../Queries/useGet";
 import { Container, Button, Table, Spacer, Input } from "@nextui-org/react";
 import DemographicsCard from "../DemographicsCard";
 import Modal from "./Modal";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { formatDateString } from "../../utils/stringUtils";
 
 const PatientView = () => {
@@ -77,7 +77,8 @@ const PatientView = () => {
           css={{
             height: "auto",
             minWidth: "100%",
-          }}>
+          }}
+        >
           <Table.Header>
             <Table.Column key="name">NAME</Table.Column>
             <Table.Column key="dob">DOB</Table.Column>
@@ -102,28 +103,23 @@ const PatientView = () => {
                     bordered
                     color="primary"
                     auto
-                    onClick={() => showModal(patient)}>
+                    onClick={() => showModal(patient)}
+                  >
                     Edit
                   </Button>
                 </Table.Cell>
                 <Table.Cell>
                   <Link to={`/${patient.id}/encounters`}>
-                  <Button
-                    bordered
-                    color="primary"
-                    auto>
-                    View
+                    <Button bordered color="primary" auto>
+                      View
                     </Button>
                   </Link>
                 </Table.Cell>
                 <Table.Cell>
                   <Link to={`/${patient.id}/encounters/new`}>
-                  <Button
-                    bordered
-                    color="primary"
-                    auto>
-                    + Add
-                  </Button>
+                    <Button bordered color="primary" auto>
+                      + Add
+                    </Button>
                   </Link>
                 </Table.Cell>
               </Table.Row>

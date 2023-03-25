@@ -2,18 +2,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function usePostPatient() {
   const queryClient = useQueryClient();
-  
+
   async function postPatient([patientInfo, hideModal]) {
-    const res = await fetch(
-      `/api/insert/patient/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(patientInfo),
-      }
-    );
+    const res = await fetch(`/api/insert/patient/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(patientInfo),
+    });
 
     if (res.status >= 400) throw new Error(`${res.status}: ${res.statusText}`);
 
@@ -27,7 +24,6 @@ export function usePostPatient() {
       hideModal();
     },
     onError: (data, variables) => {},
-    onSettled: (data, variables) => {
-    },
+    onSettled: (data, variables) => {},
   });
 }

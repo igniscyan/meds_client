@@ -1,4 +1,3 @@
-
 export const complaintsObj = [
   {
     value: 1,

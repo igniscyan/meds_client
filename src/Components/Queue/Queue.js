@@ -5,10 +5,10 @@ import { Container, Button, Table, Spacer, Input } from "@nextui-org/react";
 import DemographicsCard from "../DemographicsCard";
 import Select from "react-select";
 import Modal from "../PatientView/Modal";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { formatDateString } from "../../utils/stringUtils";
 
-const Queue  = () => {
+const Queue = () => {
   const patients = GetPatients();
   const allQueues = useGetQueues();
 
@@ -17,15 +17,15 @@ const Queue  = () => {
   // ^^^ ACTUALLY FUCK THAT ^^^
   // Instead, you can just call the update patient mutation, sending along a copy of the patient with an updated `queue` attr
   let moveQueueOptions = [];
-  if(allQueues.data && allQueues.succeeded) {
-    moveQueueOptions = allQueues.map(q => ({
+  if (allQueues.data && allQueues.succeeded) {
+    moveQueueOptions = allQueues.map((q) => ({
       label: q.name,
       value: q.id,
       onClick: () => {
-        const patientId = patients.filter(p => p.queue = q.id).id;
+        const patientId = patients.filter((p) => (p.queue = q.id)).id;
         // moveQueueMutation.mutate(patientId, q.id);
-      }
-    }))
+      },
+    }));
   }
 
   const [activePatient, setActivePatient] = useState(undefined);
@@ -44,28 +44,25 @@ const Queue  = () => {
 
   function filterRows(rows, queue) {
     //Filter rows by queue, then search by name
-    const filteredRows = rows.filter((row) =>{
-      if(row.queue === queue) return row;
-    } );
+    const filteredRows = rows.filter((row) => {
+      if (row.queue === queue) return row;
+    });
     console.log("filteredRows", filteredRows);
 
     if (searchTerm) {
       return filteredRows.filter((row) => {
         row.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        row.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+          row.last_name.toLowerCase().includes(searchTerm.toLowerCase());
       });
-    }
-    else return filteredRows;
-
+    } else return filteredRows;
   }
 
   // Get all queues which currently have a patient in them
   // Currently this pulls data from patients, but we ideally want to filter allQueues
-  function getUniqueActiveQueues(data){
-    const queues = data.map((patient) => patient.queue)
-    return [...new Set(queues)]
+  function getUniqueActiveQueues(data) {
+    const queues = data.map((patient) => patient.queue);
+    return [...new Set(queues)];
   }
-  
 
   if (patients.isLoading) return <div>Loading patients...</div>;
 
@@ -84,7 +81,6 @@ const Queue  = () => {
     }));
 
     const uniqueActiveQueues = getUniqueActiveQueues(patients.data);
-
 
     //const filteredRows = filterRows(rows);
 
@@ -107,15 +103,15 @@ const Queue  = () => {
 
           return (
             <React.Fragment key={queue}>
-              <Spacer y={2}/>
+              <Spacer y={2} />
               <h2>Queue: {queue}</h2>
 
               <Table
                 css={{
                   height: "auto",
-                  minWidth: "100%"
-                }}>
-
+                  minWidth: "100%",
+                }}
+              >
                 <Table.Header>
                   <Table.Column key="name">NAME</Table.Column>
                   <Table.Column key="dob">DOB</Table.Column>
@@ -141,26 +137,21 @@ const Queue  = () => {
                           bordered
                           color="primary"
                           auto
-                          onClick={() => showModal(patient)}>
-                            Edit
+                          onClick={() => showModal(patient)}
+                        >
+                          Edit
                         </Button>
                       </Table.Cell>
                       <Table.Cell>
                         <Link to={`/${patient.id}/encounters`}>
-                          <Button
-                            bordered
-                            color="primary"
-                            auto>
+                          <Button bordered color="primary" auto>
                             View
-                            </Button>
+                          </Button>
                         </Link>
                       </Table.Cell>
                       <Table.Cell>
                         <Link to={`/${patient.id}/encounters/new`}>
-                          <Button
-                            bordered
-                            color="primary"
-                            auto>
+                          <Button bordered color="primary" auto>
                             + Add
                           </Button>
                         </Link>
@@ -173,7 +164,7 @@ const Queue  = () => {
                 </Table.Body>
               </Table>
             </React.Fragment>
-          )
+          );
         })}
 
         {/* Modal */}

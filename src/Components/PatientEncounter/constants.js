@@ -63,4 +63,4 @@ export const triageTemplate = `CHIEF COMPLAINT:
             ENDOCRINE: 
             PSYCHIATRIC: 
             MUSCULOSKELTAL: 
-            HEMATOLOGIC/LYMPHATIC:`
+            HEMATOLOGIC/LYMPHATIC:`;
