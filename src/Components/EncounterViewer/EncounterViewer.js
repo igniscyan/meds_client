@@ -10,18 +10,19 @@ import {
   Row,
   Table,
   Container,
+  Dropdown
 } from "@nextui-org/react";
 import { Link, useParams } from "react-router-dom";
 import { useGetEncounters as getEncounters } from "../../Queries/useGetPatientEncounters";
 import { formatDateString } from "../../utils/stringUtils";
 import { complaintsObj } from "../utils";
-import { useGetPatientName as getPatientName } from "../../Queries/useGetPatientName";
+import { useGetPatientCrit as getPatientCrit } from "../../Queries/useGetPatientCrit";
 const EncounterViewer = (props) => {
   const { patientId } = useParams();
   const encounters = getEncounters(patientId);
-  const patientName = getPatientName(patientId);
+  const patientName = getPatientCrit(patientId);
 
-  if (encounters.isLoading) return <div>Loading encounters...</div>;
+  if (encounters.loading) return <div>Loading encounters...</div>;
 
   if (encounters.isError) return <div>Error loading </div>;
 
@@ -58,7 +59,7 @@ const EncounterViewer = (props) => {
                     {formatDateString(encounter.created_at)}
                   </Table.Cell>
                   <Table.Cell>
-                    {complaintsObj[encounter.chief_complaint - 1].label}
+                    {encounter.chief_complaint ? complaintsObj[encounter.chief_complaint - 1].label : encounter.alt_chief_complaint}
                   </Table.Cell>
                   <Table.Cell>
                     <Link to={`${encounter.id}`}>

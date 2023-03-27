@@ -36,7 +36,7 @@ const DemographicsCard = ({
           <Input
             label="First Name"
             placeholder="John"
-            value={patientInfo.first_name}
+            value={patientInfo.first_name || "firstName"}
             onChange={(e) => handleChange("first_name", e.target.value)}
           />
         </Grid>
@@ -44,7 +44,7 @@ const DemographicsCard = ({
           <Input
             label="Last Name"
             placeholder="Doe"
-            value={patientInfo.last_name}
+            value={patientInfo.last_name || "lastName"}
             onChange={(e) => handleChange("last_name", e.target.value)}
           />
         </Grid>
@@ -60,7 +60,7 @@ const DemographicsCard = ({
               label="Date of Birth"
               placeholder="01/01/2000"
               type="date"
-              value={patientInfo.dob}
+              value={patientInfo.dob }
               onChange={(e) => handleChange("dob", e.target.value)}
             />
           ) : (
@@ -69,7 +69,9 @@ const DemographicsCard = ({
               type="number"
               labelPlaceholder="Age"
               value={patientInfo.age || ""}
-              onChange={(e) => handleChange("age", e.target.value)}
+              onChange={(e) =>
+                handleChange("age", parseInt(e.target.value, 10))
+              }
             />
           )}
         </Grid>
@@ -132,9 +134,9 @@ const DemographicsCard = ({
         )} */}
         <Grid xs={4} justify="right">
           <Button
-            onPress={() =>
-              saveMutation.mutate([patientInfo, hideModal, patientId])
-            }
+            onPress={() => {
+              saveMutation.mutate([patientInfo, hideModal, patientId]);
+            }}
           >
             Save
           </Button>

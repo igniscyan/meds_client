@@ -52,6 +52,7 @@ const PatientView = () => {
       id: patient.id,
       first_name: patient.first_name,
       last_name: patient.last_name,
+      age: patient.age,
       dob: patient.dob,
       gender: patient.gender,
       smoker: patient.smoker,

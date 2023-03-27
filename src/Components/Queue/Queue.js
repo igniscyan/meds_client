@@ -1,7 +1,15 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState } from "react";
 import { useGet as GetPatients } from "../../Queries/useGet";
-import useGetQueues from "../../Queries/useGetQueues";
-import { Container, Button, Table, Spacer, Input } from "@nextui-org/react";
+import useMoveQueueOptions from "../../utils/useMoveQueueOptions";
+import useUpdatePatientQueue from "../../Queries/useUpdatePatientQueue";
+import {
+  Container,
+  Button,
+  Table,
+  Spacer,
+  Input,
+  Dropdown,
+} from "@nextui-org/react";
 import DemographicsCard from "../DemographicsCard";
 import Select from "react-select";
 import Modal from "../PatientView/Modal";
@@ -10,23 +18,9 @@ import { formatDateString } from "../../utils/stringUtils";
 
 const Queue = () => {
   const patients = GetPatients();
-  const allQueues = useGetQueues();
+  const updatePatientQueueMutation = useUpdatePatientQueue();
 
-  // TODO: Implement this mutation, and pull it into this file
-  // const moveQueueMutation = useMoveQueueMutation();
-  // ^^^ ACTUALLY FUCK THAT ^^^
-  // Instead, you can just call the update patient mutation, sending along a copy of the patient with an updated `queue` attr
-  let moveQueueOptions = [];
-  if (allQueues.data && allQueues.succeeded) {
-    moveQueueOptions = allQueues.map((q) => ({
-      label: q.name,
-      value: q.id,
-      onClick: () => {
-        const patientId = patients.filter((p) => (p.queue = q.id)).id;
-        // moveQueueMutation.mutate(patientId, q.id);
-      },
-    }));
-  }
+  const { moveQueueOptions, loading } = useMoveQueueOptions();
 
   const [activePatient, setActivePatient] = useState(undefined);
   const [modalVisible, setModalVisible] = useState(false);
@@ -42,6 +36,17 @@ const Queue = () => {
     setActivePatient(undefined);
   };
 
+  const queueToString = (queue) => {
+    switch (queue) {
+      case 0:
+        return "Not in Queue";
+      case 1:
+        return "Inpatient";
+      case 2:
+        return "pharmacy";
+    }
+  };
+
   function filterRows(rows, queue) {
     //Filter rows by queue, then search by name
     const filteredRows = rows.filter((row) => {
@@ -51,10 +56,14 @@ const Queue = () => {
 
     if (searchTerm) {
       return filteredRows.filter((row) => {
-        row.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          row.last_name.toLowerCase().includes(searchTerm.toLowerCase());
+        return (
+          row.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          row.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
       });
-    } else return filteredRows;
+    } else {
+      return filteredRows;
+    }
   }
 
   // Get all queues which currently have a patient in them
@@ -74,6 +83,7 @@ const Queue = () => {
       id: patient.id,
       first_name: patient.first_name,
       last_name: patient.last_name,
+      age: patient.age,
       dob: patient.dob,
       gender: patient.gender,
       smoker: patient.smoker,
@@ -81,6 +91,14 @@ const Queue = () => {
     }));
 
     const uniqueActiveQueues = getUniqueActiveQueues(patients.data);
+
+    function handleQueueChange(patientId, newQueueId) {
+      updatePatientQueueMutation.mutate([patientId, newQueueId]);
+    }
+
+    function handleClick(patientId, value) {
+      handleQueueChange(patientId, value)
+    }
 
     //const filteredRows = filterRows(rows);
 
@@ -104,10 +122,11 @@ const Queue = () => {
           return (
             <React.Fragment key={queue}>
               <Spacer y={2} />
-              <h2>Queue: {queue}</h2>
+              <h2>{queueToString(queue)}</h2>
 
               <Table
                 css={{
+                  overflow: "visible",
                   height: "auto",
                   minWidth: "100%",
                 }}
@@ -119,7 +138,7 @@ const Queue = () => {
                   <Table.Column key="tobacco">TOBACCO</Table.Column>
                   <Table.Column key="demographics">DEMOGRAPHICS</Table.Column>
                   <Table.Column key="history">VIEW ENCOUNTER(S)</Table.Column>
-                  <Table.Column key="history">NEW ENCOUNTER</Table.Column>
+                  <Table.Column key="addEncounter">NEW ENCOUNTER</Table.Column>
                   <Table.Column key="changeQueue">CHANGE QUEUE</Table.Column>
                 </Table.Header>
 
@@ -157,7 +176,25 @@ const Queue = () => {
                         </Link>
                       </Table.Cell>
                       <Table.Cell>
-                        <Select options={moveQueueOptions} />
+                        <Dropdown>
+                          <Dropdown.Button flat>
+                            {queueToString(patient.queue)}
+                          </Dropdown.Button>
+                          <Dropdown.Menu
+                            selectionMode="single"
+                            aria-label="Dynamic Actions"
+                            items={moveQueueOptions}
+                            onSelectionChange={(value) => {
+                              handleClick(patient.id,value.currentKey);
+                            }}
+                          >
+                            {(item) => (
+                              <Dropdown.Item key={item.key}>
+                                {item.name}
+                              </Dropdown.Item>
+                            )}
+                          </Dropdown.Menu>
+                        </Dropdown>
                       </Table.Cell>
                     </Table.Row>
                   ))}

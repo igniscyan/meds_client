@@ -6,6 +6,7 @@ export function usePostPatientEncounterMutation() {
   const queryClient = useQueryClient();
 
   async function postPatientEncounter([patient_encounter, patient_id]) {
+    console.log("patient_encounter:", patient_encounter);
     const res = await fetch(`/api/insert/patient_encounter/${patient_id}`, {
       method: "POST",
       headers: {

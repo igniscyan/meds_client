@@ -8,8 +8,8 @@ const Modal = ({ activePatient, visible, hideModal }) => {
   const [demographicsFields, setDemographicsFields] = useState({
     first_name: activePatient?.["first_name"],
     last_name: activePatient?.["last_name"],
-    dob: activePatient?.["dob"],
     age: activePatient?.["age"],
+    dob: activePatient?.["dob"],
     gender: activePatient?.["gender"],
     smoker: activePatient?.["smoker"] === 1,
     // Need to get these values via a query:
@@ -28,8 +28,8 @@ const Modal = ({ activePatient, visible, hideModal }) => {
         ...fields,
         first_name: activePatient?.["first_name"],
         last_name: activePatient?.["last_name"],
-        dob: activePatient?.["dob"],
         age: activePatient?.["age"],
+        dob: activePatient?.["dob"],
         gender: activePatient?.["gender"],
         smoker: activePatient?.["smoker"] === 1,
       }));
@@ -38,8 +38,8 @@ const Modal = ({ activePatient, visible, hideModal }) => {
       setDemographicsFields({
         first_name: "",
         last_name: "",
-        dob: "",
         age: 0,
+        dob: "",
         gender: "",
         smoker: false,
         gyn: "",
@@ -55,7 +55,7 @@ const Modal = ({ activePatient, visible, hideModal }) => {
       aria-labelledby="modal-title"
       open={visible}
       onClose={hideModal}
-      width="40%"
+      width="80%"
     >
       <NextModal.Header>
         <Text id="modal-title" size={18}>

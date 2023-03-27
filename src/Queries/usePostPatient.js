@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export function usePostPatient() {
   const queryClient = useQueryClient();
 
-  async function postPatient([patientInfo, hideModal]) {
+  async function postPatient([patientInfo]) {
     const res = await fetch(`/api/insert/patient/`, {
       method: "POST",
       headers: {
@@ -21,7 +21,7 @@ export function usePostPatient() {
     onSuccess: (data, variables) => {
       const [_, hideModal] = variables;
       queryClient.invalidateQueries(["get"]);
-      hideModal();
+      if (hideModal) hideModal();
     },
     onError: (data, variables) => {},
     onSettled: (data, variables) => {},
