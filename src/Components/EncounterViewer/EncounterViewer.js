@@ -1,16 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Grid,
   Text,
-  Input,
   Button,
-  Checkbox,
-  Card,
-  Textarea,
-  Row,
   Table,
   Container,
-  Dropdown
 } from "@nextui-org/react";
 import { Link, useParams } from "react-router-dom";
 import { useGetEncounters as getEncounters } from "../../Queries/useGetPatientEncounters";
@@ -22,7 +15,7 @@ const EncounterViewer = (props) => {
   const encounters = getEncounters(patientId);
   const patientName = getPatientCrit(patientId);
 
-  if (encounters.loading) return <div>Loading encounters...</div>;
+  if (encounters.isLoading) return <div>Loading encounters...</div>;
 
   if (encounters.isError) return <div>Error loading </div>;
 

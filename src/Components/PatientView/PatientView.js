@@ -83,8 +83,8 @@ const PatientView = () => {
           <Table.Header>
             <Table.Column key="name">NAME</Table.Column>
             <Table.Column key="dob">DOB</Table.Column>
+            <Table.Column key="age">AGE</Table.Column>
             <Table.Column key="gender">GENDER</Table.Column>
-            <Table.Column key="tobacco">TOBACCO</Table.Column>
             <Table.Column key="demographics">DEMOGRAPHICS</Table.Column>
             <Table.Column key="history">VIEW ENCOUNTER(S)</Table.Column>
             <Table.Column key="addEncounter">NEW ENCOUNTER</Table.Column>
@@ -97,8 +97,8 @@ const PatientView = () => {
                   {patient.first_name} {patient.last_name}
                 </Table.Cell>
                 <Table.Cell>{formatDateString(patient.dob)}</Table.Cell>
+                <Table.Cell>{patient.age || ""}</Table.Cell>
                 <Table.Cell>{patient.gender}</Table.Cell>
-                <Table.Cell>{patient.smoker ? "yes" : "no"}</Table.Cell>
                 <Table.Cell>
                   <Button
                     bordered

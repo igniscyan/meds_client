@@ -48,6 +48,16 @@ const PatientEncounter = () => {
     disbursement_8: null,
     disbursement_9: null, //int
     disbursement_10: null,
+    disbursement_1_quantity: null,
+    disbursement_2_quantity: null,
+    disbursement_3_quantity: null,
+    disbursement_4_quantity: null,
+    disbursement_5_quantity: null,
+    disbursement_6_quantity: null,
+    disbursement_7_quantity: null,
+    disbursement_8_quantity: null,
+    disbursement_9_quantity: null,
+    disbursement_10_quantity: null,
     goodies_disbursement: null, // boolean 1 or 0
     antiparasitic_disbursement: null, // boolean 1 or 0
     fluoride_disbursement: null,
@@ -77,7 +87,7 @@ const PatientEncounter = () => {
   const submitForm = () => {
     const mutation =
       encounterId === "new" ? addPatientEncounter : updatePatientEncounter;
-      console.log(encounterId);
+    console.log(encounterId);
     // TODO: need to get the patient's gyn info before making this mutation
     mutation.mutate([
       {
@@ -107,6 +117,16 @@ const PatientEncounter = () => {
         disbursement_8: encounterFields.disbursement_8,
         disbursement_9: encounterFields.disbursement_9,
         disbursement_10: encounterFields.disbursement_10,
+        disbursenement_1_quantity: encounterFields.disbursement_1_quantity,
+        disbursenement_2_quantity: encounterFields.disbursement_2_quantity,
+        disbursenement_3_quantity: encounterFields.disbursement_3_quantity,
+        disbursenement_4_quantity: encounterFields.disbursement_4_quantity,
+        disbursenement_5_quantity: encounterFields.disbursement_5_quantity,
+        disbursenement_6_quantity: encounterFields.disbursement_6_quantity,
+        disbursenement_7_quantity: encounterFields.disbursement_7_quantity,
+        disbursenement_8_quantity: encounterFields.disbursement_8_quantity,
+        disbursenement_9_quantity: encounterFields.disbursement_9_quantity,
+        disbursenement_10_quantity: encounterFields.disbursement_10_quantity,
         goodies_disbursement: encounterFields.goodies_disbursement,
         antiparasitic_disbursement: encounterFields.antiparasitic_disbursement,
         fluoride_disbursement: encounterFields.fluoride_disbursement,
@@ -321,9 +341,7 @@ const PatientEncounter = () => {
       <Spacer />
       <Text h2>Disbursed:</Text>
       <Grid.Container gap={2.5} justify="center">
-        <Grid xs={12} justify="left">
-        </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -333,8 +351,11 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_1_quantity || ""} onChange={(e) => handleChange("disbursement_1_quantity", e.target.value)} />
+        </Grid>
         {/* Repeat for each disbursement state */}
-        <Grid xs={12} justify="left">
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -344,7 +365,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_2_quantity || ""} onChange={(e) => handleChange("disbursement_2_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
 
@@ -355,7 +379,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_3_quantity || ""} onChange={(e) => handleChange("disbursement_3_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -365,7 +392,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_4_quantity || ""} onChange={(e) => handleChange("disbursement_4_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -375,7 +405,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_5_quantity || ""} onChange={(e) => handleChange("disbursement_5_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -385,7 +418,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_6_quantity || ""} onChange={(e) => handleChange("disbursement_6_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -395,7 +431,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_7_quantity || ""} onChange={(e) => handleChange("disbursement_7_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -405,7 +444,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_8_quantity || ""} onChange={(e) => handleChange("disbursement_8_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -415,7 +457,10 @@ const PatientEncounter = () => {
             />
           </div>
         </Grid>
-        <Grid xs={12} justify="left">
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_9_quantity || ""} onChange={(e) => handleChange("disbursement_9_quantity", e.target.value)} />
+        </Grid>
+        <Grid xs={9} justify="left">
           <div style={{ width: "100%" }}>
             <Select
               options={drugOptions}
@@ -424,6 +469,9 @@ const PatientEncounter = () => {
               onChange={(e) => handleChange("disbursement_10", e.value)}
             />
           </div>
+        </Grid>
+        <Grid xs={3} justify="right">
+          <Input bordered type="number" labelPlaceholder="Qty" value={encounterFields.disbursement_10_quantity || ""} onChange={(e) => handleChange("disbursement_10_quantity", e.target.value)} />
         </Grid>
       </Grid.Container>
       <Spacer />
@@ -462,80 +510,80 @@ const PatientEncounter = () => {
           <Text h3>Por favor, califique su experiencia con el servicio: Please rate your overall experience with the service.</Text>
         </Grid>
         <Grid xs={12} justify="left">
-            <Dropdown >
-              <Dropdown.Button flat>
-                {encounterFields.survey_1 || "Selection"}
-              </Dropdown.Button>
-              <Dropdown.Menu onAction={(value) => handleChange("survey_1", value)}>
-                <Dropdown.Item key="Poor">
-                  Poor
-                </Dropdown.Item>
-                <Dropdown.Item key="Average">
-                  Average
-                </Dropdown.Item>
-                <Dropdown.Item key="Excellent">
-                  Excellent
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+          <Dropdown >
+            <Dropdown.Button flat>
+              {encounterFields.survey_1 || "Selection"}
+            </Dropdown.Button>
+            <Dropdown.Menu onAction={(value) => handleChange("survey_1", value)}>
+              <Dropdown.Item key="Poor">
+                Poor
+              </Dropdown.Item>
+              <Dropdown.Item key="Average">
+                Average
+              </Dropdown.Item>
+              <Dropdown.Item key="Excellent">
+                Excellent
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Grid>
         {/* Repeat 5 more times  */}
         <Grid xs={12}>
           <Text h3>¿Entendió lo que los médicos le dijeron? How well did you understand what the doctors told you?</Text>
         </Grid>
         <Grid xs={12} justify="left">
-            <Dropdown >
-              <Dropdown.Button flat>
-                {encounterFields.survey_2 || "Selection"}
-              </Dropdown.Button>
-              <Dropdown.Menu onAction={(value) => handleChange("survey_2", value)}>
-                <Dropdown.Item key="Poor">
-                  Poor
-                </Dropdown.Item>
-                <Dropdown.Item key="Average">
-                  Average
-                </Dropdown.Item>
-                <Dropdown.Item key="Excellent">
-                  Excellent
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+          <Dropdown >
+            <Dropdown.Button flat>
+              {encounterFields.survey_2 || "Selection"}
+            </Dropdown.Button>
+            <Dropdown.Menu onAction={(value) => handleChange("survey_2", value)}>
+              <Dropdown.Item key="Poor">
+                Poor
+              </Dropdown.Item>
+              <Dropdown.Item key="Average">
+                Average
+              </Dropdown.Item>
+              <Dropdown.Item key="Excellent">
+                Excellent
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Grid>
         <Grid xs={12}>
           <Text h3>¿Hay médicos locales con cuales Ud. se puede hacer controles médicos? Do you have medical providers here to follow up with regarding your medical problems?</Text>
         </Grid>
         <Grid xs={12} justify="left">
-            <Dropdown >
-              <Dropdown.Button flat>
-                {encounterFields.survey_3 || "Selection"}
-              </Dropdown.Button>
-              <Dropdown.Menu onAction={(value) => handleChange("survey_3", value)}>
-                <Dropdown.Item key="Yes">
-                  Yes
-                </Dropdown.Item>
-                <Dropdown.Item key="No">
-                  No
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+          <Dropdown >
+            <Dropdown.Button flat>
+              {encounterFields.survey_3 || "Selection"}
+            </Dropdown.Button>
+            <Dropdown.Menu onAction={(value) => handleChange("survey_3", value)}>
+              <Dropdown.Item key="Yes">
+                Yes
+              </Dropdown.Item>
+              <Dropdown.Item key="No">
+                No
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Grid>
         <Grid xs={12}>
           <Text h3>¿Entiendeeste folleto / papel? Do you understand the pamphlet / paper?</Text>
         </Grid>
         <Grid xs={12} justify="left">
-            <Dropdown >
-              <Dropdown.Button flat>
-                {encounterFields.survey_4 || "Selection"}
-              </Dropdown.Button>
-              <Dropdown.Menu onAction={(value) => handleChange("survey_4", value)}>
-                <Dropdown.Item key="Yes">
-                  Yes
-                </Dropdown.Item>
-                <Dropdown.Item key="No">
-                  No
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+          <Dropdown >
+            <Dropdown.Button flat>
+              {encounterFields.survey_4 || "Selection"}
+            </Dropdown.Button>
+            <Dropdown.Menu onAction={(value) => handleChange("survey_4", value)}>
+              <Dropdown.Item key="Yes">
+                Yes
+              </Dropdown.Item>
+              <Dropdown.Item key="No">
+                No
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Grid>
         <Grid xs={12}>
           <Text h3>¿Sobre cuáles temas de salud le gustaría aprender más? Which health topics would you like to learn more about?</Text>
