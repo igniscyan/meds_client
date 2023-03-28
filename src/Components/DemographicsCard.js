@@ -36,7 +36,7 @@ const DemographicsCard = ({
           <Input
             label="First Name"
             placeholder="John"
-            value={patientInfo.first_name || "firstName"}
+            value={patientInfo.first_name || ""}
             onChange={(e) => handleChange("first_name", e.target.value)}
           />
         </Grid>
@@ -44,7 +44,7 @@ const DemographicsCard = ({
           <Input
             label="Last Name"
             placeholder="Doe"
-            value={patientInfo.last_name || "lastName"}
+            value={patientInfo.last_name || ""}
             onChange={(e) => handleChange("last_name", e.target.value)}
           />
         </Grid>

@@ -38,12 +38,16 @@ const Queue = () => {
 
   const queueToString = (queue) => {
     switch (queue) {
-      case 0:
-        return "Not in Queue";
       case 1:
-        return "Inpatient";
+        return "Not in Queue";
       case 2:
-        return "pharmacy";
+        return "CHECK-IN";
+      case 3:
+        return "MED TEAM";
+      case 4:
+        return "PHARMACY";
+      case 5:
+        return "GOODIES";
     }
   };
 

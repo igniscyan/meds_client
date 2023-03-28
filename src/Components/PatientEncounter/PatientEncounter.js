@@ -38,6 +38,8 @@ const PatientEncounter = () => {
     temp: null, //int
     systolic: null, //int 
     diastolic: null, //int
+    heart_rate: null,
+    resp_rate: null,
     disbursement_1: null,
     disbursement_2: null,
     disbursement_3: null,
