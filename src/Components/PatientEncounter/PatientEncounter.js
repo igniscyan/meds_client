@@ -609,4 +609,6 @@ const PatientEncounter = () => {
   );
 };
 
+
+
 export default PatientEncounter;

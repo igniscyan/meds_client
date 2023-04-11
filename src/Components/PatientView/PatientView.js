@@ -23,6 +23,23 @@ const PatientView = () => {
     setActivePatient(undefined);
   };
 
+
+  function filterByCurrentDay(obj) {
+    const currentDate = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
+    const filteredResults = [];
+
+    for (let result of obj) {
+      const resultDate = result.created_at.slice(0, 10); // Get date from result in YYYY-MM-DD format
+      if (resultDate === currentDate) {
+        filteredResults.push(result);
+      }
+    }
+
+    return filteredResults;
+  }
+
+
+
   function filterRows(rows) {
     if (!searchTerm) {
       return rows;
@@ -47,6 +64,9 @@ const PatientView = () => {
     return <div>Error loading patients: {patients.error.message}</div>;
 
   if (patients.data) {
+    console.log(patients);
+    let filteredPatients = filterByCurrentDay(patients.data);
+    console.log(filteredPatients);
     let id = 1;
     const rows = patients.data.map((patient) => ({
       id: patient.id,
